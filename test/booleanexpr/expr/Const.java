@@ -25,5 +25,19 @@
 
 package booleanexpr.expr;
 
-public class Const {
+public enum Const implements Expr{
+    TRUE,
+    FALSE;
+
+    private static boolean constVal = false;
+
+
+    /**
+     *
+     * @return liefert der jeweilige Aufzählungswert den entsprechenden Wert vom primitiven
+     * Java-Typ boolean
+     */
+    public static boolean isValue(){
+        return constVal;
+    }
 }

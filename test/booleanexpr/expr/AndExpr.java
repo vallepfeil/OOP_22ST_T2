@@ -21,5 +21,5 @@
 
 package booleanexpr.expr;
 
-public class AndExpr {
+public class AndExpr implements Expr{
 }

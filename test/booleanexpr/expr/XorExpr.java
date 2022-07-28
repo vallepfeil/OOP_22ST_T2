@@ -21,5 +21,5 @@
 
 package booleanexpr.expr;
 
-public class XorExpr {
+public class XorExpr implements Expr{
 }

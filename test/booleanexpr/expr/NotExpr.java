@@ -18,5 +18,5 @@
  */
 package booleanexpr.expr;
 
-public class NotExpr {
+public class NotExpr implements Expr{
 }

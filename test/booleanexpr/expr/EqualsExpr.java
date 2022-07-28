@@ -21,5 +21,5 @@
 
 package booleanexpr.expr;
 
-public class EqualsExpr {
+public class EqualsExpr implements Expr{
 }
