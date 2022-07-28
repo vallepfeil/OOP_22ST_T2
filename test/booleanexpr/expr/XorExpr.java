@@ -7,7 +7,7 @@
  * dass bei der Erzeugung eines Objektes der Unterklassen der richtige Operator (als String-
  * Objekt) und die übergebenen Ausdrücke vom Typ Expr an die Oberklasse weitergegeben
  * werden.
- *
+ * <p>
  * h) Alle Expr-Objekte sollen beim Aufruf der toString()-Methode geeignete Zeichenketten zurückliefern.
  * So sollen Var-Objekte ihren Namen, Const-Objekte ihren Wert als entsprechendes
  * Java-Literal, unäre Operationen den Operator direkt vor dem Operanden, z.B. !x, und
@@ -21,5 +21,70 @@
 
 package booleanexpr.expr;
 
-public class XorExpr {
+import java.util.Objects;
+
+public class XorExpr extends BinaryExpr {
+    Expr exprL;
+    Expr exprR;
+
+    /**
+     * @param exprL wenn Konstruktor aufgerufen wurde, Erzeugung des linken Objekts, dann Übergabe vom Ausdruck
+     * @param exprR wenn Konstruktor aufgerufen wurde, Erzeugung des rechten Objekts, dann Übergabe vom Ausdruck
+     */
+    public XorExpr(Expr exprL, Expr exprR) {
+        this.exprL = exprL;
+        this.exprR = exprR;
+    }
+
+    /**
+     * @return gibt Operator XOR aus
+     */
+    @Override
+    public String getOperator() {return ("^");}
+
+    @Override
+    public Expr getLeftOperand() {
+        return exprL;
+    }
+
+    @Override
+    public Expr getRightOperand() {
+        return exprR;
+    }
+
+    /**
+     * @return mit Hilfe Object-Klasse und seiner Methode toString, macht er aus der Übergabe von
+     * Strings, welche mit + konkateniert werden
+     */
+    @Override
+    public String toString() {return "(" + getLeftOperand().toString() + " " + getOperator() + " " + getRightOperand().toString() + ")";}
+
+    /**
+     * @param o
+     * @return Unterscheidung von zwei Objekten, aber auch Bewertung, ob zwei Objekte dieselben sind
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        XorExpr xorExpr = (XorExpr) o;
+        return Objects.equals(exprL, xorExpr.exprL) && Objects.equals(exprR, xorExpr.exprR);
+    }
+
+    /**
+     * @return Gibt bei Datenstruktur, die auf Hashs basieren, ob sie gleich sind auf Basis dieser errechneten
+     * Werte
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(exprL, exprR);
+    }
+
+    /**
+     * @param visitor Wenn visitor Strings als Ausgabe verwendet, dann wird auch diese Accept Methode Strings als
+     *                Rückgabe verwenden, visitor.visit(this)
+     * @param <T> Generischer Typ, kann String, Int, whatever sein
+     * @return
+     */
+    public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}
 }

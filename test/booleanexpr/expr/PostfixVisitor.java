@@ -31,5 +31,61 @@
 
 package booleanexpr.expr;
 
-public class PostfixVisitor implements Visitor{
+public class PostfixVisitor implements Visitor {
+    String and;
+    String equals;
+    String not;
+    String or;
+    String xor;
+
+    /**
+     * Speichert die Konstruktor-Parameter als Attribute
+     * @param and
+     * @param equals
+     * @param not
+     * @param or
+     * @param xor
+     */
+    public PostfixVisitor(String and, String equals, String not, String or, String xor) {
+        this.and = and; this.equals = equals; this.not = not; this.or = or; this.xor = xor;
+    }
+
+    public PostfixVisitor() {
+        this.and = "&"; this.equals = "=="; this.not = "!"; this.or = "|"; this.xor = "^";
+    }
+
+    @Override
+    public Object visit(AndExpr visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Const visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(EqualsExpr visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(NotExpr visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(OrExpr visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Var visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(XorExpr visit) {
+        return null;
+    }
 }

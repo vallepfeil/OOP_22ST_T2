@@ -22,4 +22,38 @@
 package booleanexpr.expr;
 
 public class EvalVisitor implements Visitor{
+    @Override
+    public Object visit(AndExpr visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Const visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(EqualsExpr visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(NotExpr visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(OrExpr visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Var visit) {
+        return null;
+    }
+
+    @Override
+    public Object visit(XorExpr visit) {
+        return null;
+    }
 }

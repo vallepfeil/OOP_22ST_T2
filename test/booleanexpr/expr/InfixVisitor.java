@@ -31,5 +31,79 @@
 
 package booleanexpr.expr;
 
-public class InfixVisitor implements Visitor{
+public class InfixVisitor implements Visitor<String> {
+    String and;
+    String equals;
+    String not;
+    String or;
+    String xor;
+
+    /**
+     * Speichert die Konstruktor-Parameter als Attribute
+     *
+     * @param and
+     * @param equals
+     * @param not
+     * @param or
+     * @param xor
+     */
+    public InfixVisitor(String and, String equals, String not, String or, String xor) {
+        this.and = and; this.equals = equals; this.not = not; this.or = or; this.xor = xor;
+    }
+
+    public InfixVisitor() {
+        this.and = "&"; this.equals = "=="; this.not = "!"; this.or = "|"; this.xor = "^";
+    }
+
+    /**
+     * Unbedingt nochmal angucken!
+     * @param visit
+     * @return
+     */
+    @Override
+    public String visit(AndExpr visit) {
+        return "(" + visit.getLeftOperand().accept(this) + " " + and +
+               " " + visit.getRightOperand().accept(this) + ")";
+    }
+
+    public String visit(EqualsExpr visit) {
+        return "(" + visit.getLeftOperand().accept(this) + " " + equals +
+               " " + visit.getRightOperand().accept(this) + ")";
+    }
+
+    public String visit(NotExpr visit) {
+        return "(" + not +
+               " " + visit.getOperand().accept(this) + ")";
+    }
+
+    public String visit(OrExpr visit) {
+        return "(" + visit.getLeftOperand().accept(this) + " " + or +
+               " " + visit.getRightOperand().accept(this) + ")";
+    }
+
+    public String visit(XorExpr visit) {
+        return "(" + visit.getLeftOperand().accept(this) + " " + xor +
+               " " + visit.getRightOperand().accept(this) + ")";
+    }
+
+    /**
+     * @param visit In dem Moment, in dem dieses Objekt mit einem Const Parameter aufgerufen wird, wird ein Const-Objekt
+     *              draus
+     * @return
+     */
+    @Override
+    public String visit(Const visit) {
+        return visit.toString();
+    }
+
+
+    /**
+     * @param visit
+     * @return Gibt String aus, einfacher Fall, weil keine Ausdrücke/Composite drin
+     */
+    @Override
+    public String visit(Var visit) {
+        return visit.toString();
+    }
+
 }

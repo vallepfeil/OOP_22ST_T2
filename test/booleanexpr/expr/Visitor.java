@@ -64,5 +64,22 @@
 
 package booleanexpr.expr;
 
-public interface Visitor {
+/**
+ *
+ * @param <T> Erstellt einen String-Visitor o. Anderes, T steht auch für den Rückgabetyp der Methode
+ */
+public interface Visitor<T> {
+    /**
+     * visit gibt ein Objekt vom Typ T, damit es abstrakt/generisch bleibt
+     * läuft über Datenstruktur
+     * jede Art von Objekten einer Datenstruktur erhält eine Visit-Methode
+     * das Ganze ist abstrakt, wichtig für Aufgabe 3
+     */
+    public T visit(AndExpr visit);
+    public T visit(Const visit);
+    public T visit(EqualsExpr visit);
+    public T visit(NotExpr visit);
+    public T visit(OrExpr visit);
+    public T visit(Var visit);
+    public T visit(XorExpr visit);
 }

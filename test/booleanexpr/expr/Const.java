@@ -11,7 +11,7 @@
  * Verfügung. Auch dieser Aufzählungstyp implementiert das Interface Expr. Über die Methode
  * isValue() liefert der jeweilige Aufzählungswert den entsprechenden Wert vom primitiven
  * Java-Typ boolean.
- *
+ * <p>
  * h) Alle Expr-Objekte sollen beim Aufruf der toString()-Methode geeignete Zeichenketten zurückliefern.
  * So sollen Var-Objekte ihren Namen, Const-Objekte ihren Wert als entsprechendes
  * Java-Literal, unäre Operationen den Operator direkt vor dem Operanden, z.B. !x, und
@@ -25,5 +25,36 @@
 
 package booleanexpr.expr;
 
-public class Const {
+public enum Const implements Expr {
+    TRUE,
+    FALSE;
+
+    //private static boolean constVal = false;
+
+    /**
+     * @return liefert der jeweilige Aufzählungswert den entsprechenden Wert vom primitiven
+     * Java-Typ boolean
+     */
+    public boolean isValue() {
+        if (this.equals(Const.TRUE)) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    /**
+     * @return mit Hilfe Wrapper-Klasse Boolean und seiner Methode toString, macht er aus der Übergabe von
+     * isValue(), welches ein Boolean ist ein String
+     */
+    @Override
+    public String toString() {return Boolean.toString(isValue());}
+
+    /**
+     * @param visitor Wenn visitor Strings als Ausgabe verwendet, dann wird auch diese Accept Methode Strings als
+     *                Rückgabe verwenden, visitor.visit(this)
+     * @param <T> Generischer Typ, kann String, Int, whatever sein
+     * @return
+     */
+    public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}
 }
