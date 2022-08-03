@@ -35,5 +35,13 @@
 
 package booleanexpr;
 
+import booleanexpr.expr.Expr;
+
 public class DisjunctiveNormalForm {
+    public DisjunctiveNormalForm(Expr expr) {
+    }
+
+    public Expr normalize() {
+        return null;
+    }
 }

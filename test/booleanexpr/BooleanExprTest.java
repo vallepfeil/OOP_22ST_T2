@@ -262,7 +262,7 @@ public class BooleanExprTest {
 
     @Test
     public void varCompareToTest() {
-//        assertTrue(new Var("x") instanceof Comparable<Var>); assertTrue(new Var("a").compareTo(new Var("y")) < 0);
+        assertTrue(new Var("x") instanceof Comparable<Var>); assertTrue(new Var("a").compareTo(new Var("y")) < 0);
         assertTrue(new Var("x").compareTo(new Var("y")) < 0); assertEquals(0, new Var("x").compareTo(new Var("x")));
         assertTrue(new Var("x").compareTo(new Var("a")) > 0); assertTrue(new Var("x").compareTo(new Var("w")) > 0);
 
@@ -333,371 +333,371 @@ public class BooleanExprTest {
         assertEquals("~true", new NotExpr(TRUE).accept(INFIX_VISITOR_MATH));
     }
 
-//    // PREFIX VISITOR
-//
-//    @Test
-//    public void prefixVisitAndExprTest() {
-//        assertEquals("& x y", X_AND_Y.accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("& & x y z", X_AND_Y_AND_Z.accept(PREFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void prefixVisitEqualsExprTest() {
-//        assertEquals("== x y", X_EQUALS_Y.accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("== == x y z", X_EQUALS_Y_EQUALS_Z.accept(PREFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void prefixVisitNotExprTest() {
-//        assertEquals("! x", NOT_X.accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("! ! z", NOT_NOT_Z.accept(PREFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void prefixVisitOrExprTest() {
-//        assertEquals("| x y", X_OR_Y.accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("| z | x y", Z_OR_X_OR_Y.accept(PREFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void prefixVisitXorExprTest() {
-//        assertEquals("^ x y", X_XOR_Y.accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("^ z ^ x y", Z_XOR_X_XOR_Y.accept(PREFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void prefixVisitConstExprTest() {
-//        assertEquals("false", FALSE.accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("true", TRUE.accept(PREFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void prefixVisitExprWithConstJavaTest() {
-//        assertEquals("& false true", new AndExpr(FALSE, TRUE).accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("== false true", new EqualsExpr(FALSE, TRUE).accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("| false true", new OrExpr(FALSE, TRUE).accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("^ false true", new XorExpr(FALSE, TRUE).accept(PREFIX_VISITOR_JAVA));
-//        assertEquals("! true", new NotExpr(TRUE).accept(PREFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void prefixVisitExprWithConstLogicTest() {
-//        assertEquals("^ false true", new AndExpr(FALSE, TRUE).accept(PREFIX_VISITOR_LOGIC));
-//        assertEquals("= false true", new EqualsExpr(FALSE, TRUE).accept(PREFIX_VISITOR_LOGIC));
-//        assertEquals("v false true", new OrExpr(FALSE, TRUE).accept(PREFIX_VISITOR_LOGIC));
-//        assertEquals("⊕ false true", new XorExpr(FALSE, TRUE).accept(PREFIX_VISITOR_LOGIC));
-//        assertEquals("~ true", new NotExpr(TRUE).accept(PREFIX_VISITOR_LOGIC));
-//    }
-//
-//    @Test
-//    public void prefixVisitExprWithConstMathTest() {
-//        assertEquals("* false true", new AndExpr(FALSE, TRUE).accept(PREFIX_VISITOR_MATH));
-//        assertEquals("= false true", new EqualsExpr(FALSE, TRUE).accept(PREFIX_VISITOR_MATH));
-//        assertEquals("+ false true", new OrExpr(FALSE, TRUE).accept(PREFIX_VISITOR_MATH));
-//        assertEquals("⊕ false true", new XorExpr(FALSE, TRUE).accept(PREFIX_VISITOR_MATH));
-//        assertEquals("~ true", new NotExpr(TRUE).accept(PREFIX_VISITOR_MATH));
-//    }
-//
-//    // POSTFIX VISITOR
-//
-//    @Test
-//    public void postfixVisitAndExprTest() {
-//        assertEquals("x y &", X_AND_Y.accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("x y & z &", X_AND_Y_AND_Z.accept(POSTFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void postfixVisitEqualsExprTest() {
-//        assertEquals("x y ==", X_EQUALS_Y.accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("x y == z ==", X_EQUALS_Y_EQUALS_Z.accept(POSTFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void postfixVisitNotExprTest() {
-//        assertEquals("x !", NOT_X.accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("z ! !", NOT_NOT_Z.accept(POSTFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void postfixVisitOrExprTest() {
-//        assertEquals("x y |", X_OR_Y.accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("z x y | |", Z_OR_X_OR_Y.accept(POSTFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void postfixVisitXorExprTest() {
-//        assertEquals("x y ^", X_XOR_Y.accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("z x y ^ ^", Z_XOR_X_XOR_Y.accept(POSTFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void postfixVisitConstExprTest() {
-//        assertEquals("false", FALSE.accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("true", TRUE.accept(POSTFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void postfixVisitExprWithConstJavaTest() {
-//        assertEquals("false true &", new AndExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("false true ==", new EqualsExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("false true |", new OrExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("false true ^", new XorExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_JAVA));
-//        assertEquals("true !", new NotExpr(TRUE).accept(POSTFIX_VISITOR_JAVA));
-//    }
-//
-//    @Test
-//    public void postfixVisitExprWithConstLogicTest() {
-//        assertEquals("false true ^", new AndExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_LOGIC));
-//        assertEquals("false true =", new EqualsExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_LOGIC));
-//        assertEquals("false true v", new OrExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_LOGIC));
-//        assertEquals("false true ⊕", new XorExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_LOGIC));
-//        assertEquals("true ~", new NotExpr(TRUE).accept(POSTFIX_VISITOR_LOGIC));
-//    }
-//
-//    @Test
-//    public void postfixVisitExprWithConstMathTest() {
-//        assertEquals("false true *", new AndExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_MATH));
-//        assertEquals("false true =", new EqualsExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_MATH));
-//        assertEquals("false true +", new OrExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_MATH));
-//        assertEquals("false true ⊕", new XorExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_MATH));
-//        assertEquals("true ~", new NotExpr(TRUE).accept(POSTFIX_VISITOR_MATH));
-//    }
-//
-//    // VAR ASSIGNMENT
-//
-//    @Test
-//    public void varAssignmentInputTest() {
-//        final VarAssignment varAssignment = new VarAssignment(); List<Var> vars = varAssignment.getVars();
-//        assertEquals(0, vars.size()); assertTrue(vars.isEmpty());
-//
-//        assertFalse(varAssignment.isAssigned(X)); assertFalse(varAssignment.isAssigned(Y));
-//        assertFalse(varAssignment.isAssigned(Z));
-//
-//        varAssignment.setVar(Y, true); vars = varAssignment.getVars(); assertEquals(1, vars.size());
-//        assertEquals(List.of(Y), vars); assertTrue(varAssignment.getAssignment(Y));
-//
-//        assertFalse(varAssignment.isAssigned(X)); assertTrue(varAssignment.isAssigned(Y));
-//        assertFalse(varAssignment.isAssigned(Z));
-//
-//        varAssignment.setVar(Z, false); vars = varAssignment.getVars(); assertEquals(2, vars.size());
-//        assertEquals(List.of(Y, Z), vars); assertFalse(varAssignment.getAssignment(Z));
-//
-//        assertFalse(varAssignment.isAssigned(X)); assertTrue(varAssignment.isAssigned(Y));
-//        assertTrue(varAssignment.isAssigned(Z));
-//
-//        varAssignment.setVar(X, true); vars = varAssignment.getVars(); assertEquals(3, vars.size());
-//        assertEquals(List.of(X, Y, Z), vars); assertTrue(varAssignment.getAssignment(X));
-//
-//        assertTrue(varAssignment.isAssigned(X)); assertTrue(varAssignment.isAssigned(Y));
-//        assertTrue(varAssignment.isAssigned(Z));
-//
-//        varAssignment.setVar(X, false); vars = varAssignment.getVars(); assertEquals(3, vars.size());
-//        assertEquals(List.of(X, Y, Z), vars); assertFalse(varAssignment.getAssignment(X));
-//
-//        assertTrue(varAssignment.isAssigned(X)); assertTrue(varAssignment.isAssigned(Y));
-//        assertTrue(varAssignment.isAssigned(Z));
-//    }
-//
-//    @Test
-//    public void varAssignmentIteratorTest() {
-//        VarAssignment varAssignment = new VarAssignment(); varAssignment.setVar(X, true);
-//        varAssignment.setVar(Y, false); Iterator<VarAssignment> it = varAssignment.iterator(); assertTrue(it.hasNext());
-//        VarAssignment va1 = it.next(); assertNotNull(va1); assertFalse(va1.getAssignment(X));
-//        assertFalse(va1.getAssignment(Y)); assertTrue(it.hasNext()); VarAssignment va2 = it.next(); assertNotNull(va2);
-//        assertFalse(va2.getAssignment(X)); assertTrue(va2.getAssignment(Y)); assertTrue(it.hasNext());
-//        VarAssignment va3 = it.next(); assertNotNull(va3); assertTrue(va3.getAssignment(X));
-//        assertFalse(va3.getAssignment(Y)); assertTrue(it.hasNext()); VarAssignment va4 = it.next(); assertNotNull(va4);
-//        assertTrue(va4.getAssignment(X)); assertTrue(va4.getAssignment(Y)); assertFalse(it.hasNext());
-//    }
-//
-//    // EVAL VISITOR
-//
-//    @Test
-//    public void evalConstExprTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor(); assertTrue(TRUE.accept(evalVisitor));
-//        assertFalse(FALSE.accept(evalVisitor));
-//    }
-//
-//    @Test
-//    public void evalVarTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor(); evalVisitor.setVar(new Var("f"), false);
-//        evalVisitor.setVar(new Var("t"), true); evalVisitor.setVar(X, true); evalVisitor.setVar(Y, false);
-//        assertFalse(evalVisitor.getVar(new Var("f"))); assertTrue(evalVisitor.getVar(new Var("t")));
-//
-//        assertFalse(new Var("f").accept(evalVisitor)); assertTrue(new Var("t").accept(evalVisitor));
-//        assertTrue(X.accept(evalVisitor)); assertFalse(Y.accept(evalVisitor));
-//    }
-//
-//    @Test(expected = UnknownVarException.class)
-//    public void evalUnknownVarTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor(); X.accept(evalVisitor);
-//    }
-//
-//    @Test
-//    public void evalAndTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor(); assertFalse(new AndExpr(FALSE, FALSE).accept(evalVisitor));
-//        assertFalse(new AndExpr(FALSE, TRUE).accept(evalVisitor));
-//        assertFalse(new AndExpr(TRUE, FALSE).accept(evalVisitor));
-//        assertTrue(new AndExpr(TRUE, TRUE).accept(evalVisitor));
-//    }
-//
-//    @Test
-//    public void evalEqualsTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor(); assertTrue(new EqualsExpr(FALSE, FALSE).accept(evalVisitor));
-//        assertFalse(new EqualsExpr(FALSE, TRUE).accept(evalVisitor));
-//        assertFalse(new EqualsExpr(TRUE, FALSE).accept(evalVisitor));
-//        assertTrue(new EqualsExpr(TRUE, TRUE).accept(evalVisitor));
-//    }
-//
-//    @Test
-//    public void evalOrTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor(); assertFalse(new OrExpr(FALSE, FALSE).accept(evalVisitor));
-//        assertTrue(new OrExpr(FALSE, TRUE).accept(evalVisitor));
-//        assertTrue(new OrExpr(TRUE, FALSE).accept(evalVisitor)); assertTrue(new OrExpr(TRUE, TRUE).accept(evalVisitor));
-//    }
-//
-//    @Test
-//    public void evalXorTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor(); assertFalse(new XorExpr(FALSE, FALSE).accept(evalVisitor));
-//        assertTrue(new XorExpr(FALSE, TRUE).accept(evalVisitor));
-//        assertTrue(new XorExpr(TRUE, FALSE).accept(evalVisitor));
-//        assertFalse(new XorExpr(TRUE, TRUE).accept(evalVisitor));
-//    }
-//
-//    @Test
-//    public void evalNotTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor(); assertFalse(new NotExpr(TRUE).accept(evalVisitor));
-//        assertTrue(new NotExpr(FALSE).accept(evalVisitor));
-//    }
-//
-//    @Test
-//    public void evalExprVarTest() {
-//        EvalVisitor evalVisitor = new EvalVisitor();
-//
-//        evalVisitor.setVar(X, false); evalVisitor.setVar(Y, false); assertTrue(new NotExpr(X).accept(evalVisitor));
-//        assertFalse(new AndExpr(X, Y).accept(evalVisitor)); assertTrue(new EqualsExpr(X, Y).accept(evalVisitor));
-//        assertFalse(new OrExpr(X, Y).accept(evalVisitor)); assertFalse(new XorExpr(X, Y).accept(evalVisitor));
-//
-//        evalVisitor.setVar(Y, true); assertFalse(new AndExpr(X, Y).accept(evalVisitor));
-//        assertFalse(new EqualsExpr(X, Y).accept(evalVisitor)); assertTrue(new OrExpr(X, Y).accept(evalVisitor));
-//        assertTrue(new XorExpr(X, Y).accept(evalVisitor));
-//
-//        evalVisitor.setVar(X, true); evalVisitor.setVar(Y, false); assertFalse(new NotExpr(X).accept(evalVisitor));
-//        assertFalse(new AndExpr(X, Y).accept(evalVisitor)); assertFalse(new EqualsExpr(X, Y).accept(evalVisitor));
-//        assertTrue(new OrExpr(X, Y).accept(evalVisitor)); assertTrue(new XorExpr(X, Y).accept(evalVisitor));
-//
-//        evalVisitor.setVar(Y, true); assertTrue(new AndExpr(X, Y).accept(evalVisitor));
-//        assertTrue(new EqualsExpr(X, Y).accept(evalVisitor)); assertTrue(new OrExpr(X, Y).accept(evalVisitor));
-//        assertFalse(new XorExpr(X, Y).accept(evalVisitor));
-//    }
-//
-//    // VAREXTRACT VISITOR
-//
-//    @Test
-//    public void nothingToExtractTest() {
-//        VarExtractVisitor varExtractVisitor = new VarExtractVisitor();
-//        assertTrue(varExtractVisitor.getVars().isEmpty()); TRUE.accept(varExtractVisitor);
-//        assertTrue(varExtractVisitor.getVars().isEmpty()); FALSE.accept(varExtractVisitor);
-//        assertTrue(varExtractVisitor.getVars().isEmpty()); new AndExpr(TRUE, TRUE).accept(varExtractVisitor);
-//        new EqualsExpr(TRUE, TRUE).accept(varExtractVisitor); new OrExpr(TRUE, TRUE).accept(varExtractVisitor);
-//        new XorExpr(TRUE, TRUE).accept(varExtractVisitor); new NotExpr(TRUE).accept(varExtractVisitor);
-//        assertTrue(varExtractVisitor.getVars().isEmpty());
-//    }
-//
-//    @Test
-//    public void simpleVarExtractTest() {
-//        final Var x = new Var("x"); final Var y = new Var("y");
-//        VarExtractVisitor varExtractVisitor = new VarExtractVisitor();
-//        assertTrue(varExtractVisitor.getVars().isEmpty()); x.accept(varExtractVisitor);
-//        assertEquals(1, varExtractVisitor.getVars().size()); assertEquals(Set.of(x), varExtractVisitor.getVars());
-//        x.accept(varExtractVisitor); assertEquals(1, varExtractVisitor.getVars().size());
-//        assertEquals(Set.of(x), varExtractVisitor.getVars()); y.accept(varExtractVisitor);
-//        assertEquals(2, varExtractVisitor.getVars().size()); assertEquals(Set.of(x, y), varExtractVisitor.getVars());
-//        y.accept(varExtractVisitor); assertEquals(2, varExtractVisitor.getVars().size());
-//        assertEquals(Set.of(x, y), varExtractVisitor.getVars());
-//    }
-//
-//    @Test
-//    public void complexVarExtractTest() {
-//        final Var a = new Var("a"); final Var b = new Var("b"); final Var c = new Var("c"); final Var d = new Var("d");
-//        Expr e = new NotExpr(new AndExpr(new OrExpr(new EqualsExpr(a, b), c), new XorExpr(d, TRUE)));
-//        VarExtractVisitor varExtractVisitor = new VarExtractVisitor();
-//        assertTrue(varExtractVisitor.getVars().isEmpty()); e.accept(varExtractVisitor);
-//        assertEquals(4, varExtractVisitor.getVars().size());
-//        assertEquals(Set.of(a, b, c, d), varExtractVisitor.getVars());
-//    }
-//
-//    // TRUTHTABLE
-//
-//    @Test
-//    public void noVarTableTest() {
-//        final TruthTable truthTable = new TruthTable(); truthTable.addExpr(new AndExpr(TRUE, FALSE));
-//        assertEquals(TRUE_AND_FALSE_TABLE, truthTable.toString());
-//    }
-//
-//    @Test
-//    public void varTableTest() {
-//        final TruthTable truthTable = new TruthTable(); truthTable.addExpr(new Var("x"));
-//        assertEquals(VAR_TABLE, truthTable.toString());
-//    }
-//
-//    @Test
-//    public void exampleTest() {
-//        final TruthTable truthTable = new TruthTable(); final Var x = new Var("x"); final Var y = new Var("y");
-//        truthTable.addExpr(new AndExpr(x, y)); truthTable.addExpr(new EqualsExpr(x, y));
-//        truthTable.addExpr(new NotExpr(x)); truthTable.addExpr(new OrExpr(x, y)); truthTable.addExpr(new XorExpr(x, y));
-//        assertEquals(EXAMPLE_TABLE, truthTable.toString());
-//    }
-//
-//    @Test
-//    public void manyExprTest() {
-//        final TruthTable truthTable = new TruthTable(); final Var x = new Var("x"); final Var y = new Var("y");
-//        truthTable.addExpr(new AndExpr(x, y)); assertEquals(Set.of(x, y), truthTable.getVars());
-//        truthTable.addExpr(new EqualsExpr(x, y)); truthTable.addExpr(new NotExpr(x));
-//        truthTable.addExpr(new OrExpr(x, y)); truthTable.addExpr(new XorExpr(x, y));
-//
-//        final Var ab = new Var("ab"); final Var cde = new Var("cde"); truthTable.addExpr(new AndExpr(ab, cde));
-//        assertEquals(Set.of(x, y, ab, cde), truthTable.getVars()); truthTable.addExpr(new EqualsExpr(ab, cde));
-//        truthTable.addExpr(new NotExpr(ab)); truthTable.addExpr(new OrExpr(ab, cde));
-//        truthTable.addExpr(new XorExpr(ab, cde)); assertEquals(MANY_VARS_TABLE, truthTable.toString());
-//
-//        assertEquals(Set.of(x, y, ab, cde), truthTable.getVars());
-//    }
-//
-//    @Test
-//    public void longNameTest() {
-//        final TruthTable truthTable = new TruthTable(); final Var longNameVar = new Var("abcdefghijklmnopqrstuvwxyz");
-//        truthTable.addExpr(new NotExpr(longNameVar)); assertEquals(LONG_NAME_TABLE, truthTable.toString());
-//    }
-//
-//    // NORMAL FORM
-//
-//    @Test
-//    public void normalFormAndAssignmentsTest() {
-//        NormalForm nf1 = new DummyNormalForm(X_AND_Y); VarAssignment a1 = new VarAssignment(); a1.setVar(X, true);
-//        a1.setVar(Y, true); assertEquals(List.of(a1), nf1.getTrueAssignments()); VarAssignment a2 = new VarAssignment();
-//        a2.setVar(X, false); a2.setVar(Y, false); VarAssignment a3 = new VarAssignment(); a3.setVar(X, false);
-//        a3.setVar(Y, true); VarAssignment a4 = new VarAssignment(); a4.setVar(X, true); a4.setVar(Y, false);
-//        assertEquals(List.of(a2, a3, a4), nf1.getFalseAssignments());
-//    }
-//
-//    @Test
-//    public void normalFormOrAssignmentsTest() {
-//        NormalForm nf1 = new DummyNormalForm(X_OR_Y); VarAssignment a1 = new VarAssignment(); a1.setVar(X, false);
-//        a1.setVar(Y, false); assertEquals(List.of(a1), nf1.getFalseAssignments());
-//        VarAssignment a2 = new VarAssignment(); a2.setVar(X, false); a2.setVar(Y, true);
-//        VarAssignment a3 = new VarAssignment(); a3.setVar(X, true); a3.setVar(Y, false);
-//        VarAssignment a4 = new VarAssignment(); a4.setVar(X, true); a4.setVar(Y, true);
-//        assertEquals(List.of(a2, a3, a4), nf1.getTrueAssignments());
-//    }
-//
-//    @Test
-//    public void disjunctiveNormalFormTest() {
-//        List<Expr> exprList = List.of(new AndExpr(new Var("x"), new Var("y")), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z")), new AndExpr(new Var("x"), new AndExpr(new Var("y"), new Var("z"))), new OrExpr(new Var("x"), new Var("y")), new OrExpr(new OrExpr(new Var("x"), new Var("y")), new Var("z")), new OrExpr(new Var("x"), new OrExpr(new Var("y"), new Var("z"))));
-//
-//        List<Expr> dnfList = List.of(new AndExpr(new Var("x"), new Var("y")), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z")), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z")), new OrExpr(new OrExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new AndExpr(new Var("x"), new NotExpr(new Var("y")))), new AndExpr(new Var("x"), new Var("y"))), new OrExpr(new OrExpr(new OrExpr(new OrExpr(new OrExpr(new OrExpr(new AndExpr(new AndExpr(new NotExpr(new Var("x")), new NotExpr(new Var("y"))), new Var("z")), new AndExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new Var("z"))), new AndExpr(new AndExpr(new Var("x"), new NotExpr(new Var("y"))), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new Var("x"), new NotExpr(new Var("y"))), new Var("z"))), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z"))), new OrExpr(new OrExpr(new OrExpr(new OrExpr(new OrExpr(new OrExpr(new AndExpr(new AndExpr(new NotExpr(new Var("x")), new NotExpr(new Var("y"))), new Var("z")), new AndExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new Var("z"))), new AndExpr(new AndExpr(new Var("x"), new NotExpr(new Var("y"))), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new Var("x"), new NotExpr(new Var("y"))), new Var("z"))), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z"))));
-//
-//        for (int i = 0; i < exprList.size(); ++i)
-//            assertEquals(dnfList.get(i), new DisjunctiveNormalForm(exprList.get(i)).normalize());
-//    }
+    // PREFIX VISITOR
+
+    @Test
+    public void prefixVisitAndExprTest() {
+        assertEquals("& x y", X_AND_Y.accept(PREFIX_VISITOR_JAVA));
+        assertEquals("& & x y z", X_AND_Y_AND_Z.accept(PREFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void prefixVisitEqualsExprTest() {
+        assertEquals("== x y", X_EQUALS_Y.accept(PREFIX_VISITOR_JAVA));
+        assertEquals("== == x y z", X_EQUALS_Y_EQUALS_Z.accept(PREFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void prefixVisitNotExprTest() {
+        assertEquals("! x", NOT_X.accept(PREFIX_VISITOR_JAVA));
+        assertEquals("! ! z", NOT_NOT_Z.accept(PREFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void prefixVisitOrExprTest() {
+        assertEquals("| x y", X_OR_Y.accept(PREFIX_VISITOR_JAVA));
+        assertEquals("| z | x y", Z_OR_X_OR_Y.accept(PREFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void prefixVisitXorExprTest() {
+        assertEquals("^ x y", X_XOR_Y.accept(PREFIX_VISITOR_JAVA));
+        assertEquals("^ z ^ x y", Z_XOR_X_XOR_Y.accept(PREFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void prefixVisitConstExprTest() {
+        assertEquals("false", FALSE.accept(PREFIX_VISITOR_JAVA));
+        assertEquals("true", TRUE.accept(PREFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void prefixVisitExprWithConstJavaTest() {
+        assertEquals("& false true", new AndExpr(FALSE, TRUE).accept(PREFIX_VISITOR_JAVA));
+        assertEquals("== false true", new EqualsExpr(FALSE, TRUE).accept(PREFIX_VISITOR_JAVA));
+        assertEquals("| false true", new OrExpr(FALSE, TRUE).accept(PREFIX_VISITOR_JAVA));
+        assertEquals("^ false true", new XorExpr(FALSE, TRUE).accept(PREFIX_VISITOR_JAVA));
+        assertEquals("! true", new NotExpr(TRUE).accept(PREFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void prefixVisitExprWithConstLogicTest() {
+        assertEquals("^ false true", new AndExpr(FALSE, TRUE).accept(PREFIX_VISITOR_LOGIC));
+        assertEquals("= false true", new EqualsExpr(FALSE, TRUE).accept(PREFIX_VISITOR_LOGIC));
+        assertEquals("v false true", new OrExpr(FALSE, TRUE).accept(PREFIX_VISITOR_LOGIC));
+        assertEquals("⊕ false true", new XorExpr(FALSE, TRUE).accept(PREFIX_VISITOR_LOGIC));
+        assertEquals("~ true", new NotExpr(TRUE).accept(PREFIX_VISITOR_LOGIC));
+    }
+
+    @Test
+    public void prefixVisitExprWithConstMathTest() {
+        assertEquals("* false true", new AndExpr(FALSE, TRUE).accept(PREFIX_VISITOR_MATH));
+        assertEquals("= false true", new EqualsExpr(FALSE, TRUE).accept(PREFIX_VISITOR_MATH));
+        assertEquals("+ false true", new OrExpr(FALSE, TRUE).accept(PREFIX_VISITOR_MATH));
+        assertEquals("⊕ false true", new XorExpr(FALSE, TRUE).accept(PREFIX_VISITOR_MATH));
+        assertEquals("~ true", new NotExpr(TRUE).accept(PREFIX_VISITOR_MATH));
+    }
+
+    // POSTFIX VISITOR
+
+    @Test
+    public void postfixVisitAndExprTest() {
+        assertEquals("x y &", X_AND_Y.accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("x y & z &", X_AND_Y_AND_Z.accept(POSTFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void postfixVisitEqualsExprTest() {
+        assertEquals("x y ==", X_EQUALS_Y.accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("x y == z ==", X_EQUALS_Y_EQUALS_Z.accept(POSTFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void postfixVisitNotExprTest() {
+        assertEquals("x !", NOT_X.accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("z ! !", NOT_NOT_Z.accept(POSTFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void postfixVisitOrExprTest() {
+        assertEquals("x y |", X_OR_Y.accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("z x y | |", Z_OR_X_OR_Y.accept(POSTFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void postfixVisitXorExprTest() {
+        assertEquals("x y ^", X_XOR_Y.accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("z x y ^ ^", Z_XOR_X_XOR_Y.accept(POSTFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void postfixVisitConstExprTest() {
+        assertEquals("false", FALSE.accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("true", TRUE.accept(POSTFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void postfixVisitExprWithConstJavaTest() {
+        assertEquals("false true &", new AndExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("false true ==", new EqualsExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("false true |", new OrExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("false true ^", new XorExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_JAVA));
+        assertEquals("true !", new NotExpr(TRUE).accept(POSTFIX_VISITOR_JAVA));
+    }
+
+    @Test
+    public void postfixVisitExprWithConstLogicTest() {
+        assertEquals("false true ^", new AndExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_LOGIC));
+        assertEquals("false true =", new EqualsExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_LOGIC));
+        assertEquals("false true v", new OrExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_LOGIC));
+        assertEquals("false true ⊕", new XorExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_LOGIC));
+        assertEquals("true ~", new NotExpr(TRUE).accept(POSTFIX_VISITOR_LOGIC));
+    }
+
+    @Test
+    public void postfixVisitExprWithConstMathTest() {
+        assertEquals("false true *", new AndExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_MATH));
+        assertEquals("false true =", new EqualsExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_MATH));
+        assertEquals("false true +", new OrExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_MATH));
+        assertEquals("false true ⊕", new XorExpr(FALSE, TRUE).accept(POSTFIX_VISITOR_MATH));
+        assertEquals("true ~", new NotExpr(TRUE).accept(POSTFIX_VISITOR_MATH));
+    }
+
+    // VAR ASSIGNMENT
+
+    @Test
+    public void varAssignmentInputTest() {
+        final VarAssignment varAssignment = new VarAssignment(); List<Var> vars = varAssignment.getVars();
+        assertEquals(0, vars.size()); assertTrue(vars.isEmpty());
+
+        assertFalse(varAssignment.isAssigned(X)); assertFalse(varAssignment.isAssigned(Y));
+        assertFalse(varAssignment.isAssigned(Z));
+
+        varAssignment.setVar(Y, true); vars = varAssignment.getVars(); assertEquals(1, vars.size());
+        assertEquals(List.of(Y), vars); assertTrue(varAssignment.getAssignment(Y));
+
+        assertFalse(varAssignment.isAssigned(X)); assertTrue(varAssignment.isAssigned(Y));
+        assertFalse(varAssignment.isAssigned(Z));
+
+        varAssignment.setVar(Z, false); vars = varAssignment.getVars(); assertEquals(2, vars.size());
+        assertEquals(List.of(Y, Z), vars); assertFalse(varAssignment.getAssignment(Z));
+
+        assertFalse(varAssignment.isAssigned(X)); assertTrue(varAssignment.isAssigned(Y));
+        assertTrue(varAssignment.isAssigned(Z));
+
+        varAssignment.setVar(X, true); vars = varAssignment.getVars(); assertEquals(3, vars.size());
+        assertEquals(List.of(X, Y, Z), vars); assertTrue(varAssignment.getAssignment(X));
+
+        assertTrue(varAssignment.isAssigned(X)); assertTrue(varAssignment.isAssigned(Y));
+        assertTrue(varAssignment.isAssigned(Z));
+
+        varAssignment.setVar(X, false); vars = varAssignment.getVars(); assertEquals(3, vars.size());
+        assertEquals(List.of(X, Y, Z), vars); assertFalse(varAssignment.getAssignment(X));
+
+        assertTrue(varAssignment.isAssigned(X)); assertTrue(varAssignment.isAssigned(Y));
+        assertTrue(varAssignment.isAssigned(Z));
+    }
+
+    @Test
+    public void varAssignmentIteratorTest() {
+        VarAssignment varAssignment = new VarAssignment(); varAssignment.setVar(X, true);
+        varAssignment.setVar(Y, false); Iterator<VarAssignment> it = varAssignment.iterator(); assertTrue(it.hasNext());
+        VarAssignment va1 = it.next(); assertNotNull(va1); assertFalse(va1.getAssignment(X));
+        assertFalse(va1.getAssignment(Y)); assertTrue(it.hasNext()); VarAssignment va2 = it.next(); assertNotNull(va2);
+        assertFalse(va2.getAssignment(X)); assertTrue(va2.getAssignment(Y)); assertTrue(it.hasNext());
+        VarAssignment va3 = it.next(); assertNotNull(va3); assertTrue(va3.getAssignment(X));
+        assertFalse(va3.getAssignment(Y)); assertTrue(it.hasNext()); VarAssignment va4 = it.next(); assertNotNull(va4);
+        assertTrue(va4.getAssignment(X)); assertTrue(va4.getAssignment(Y)); assertFalse(it.hasNext());
+    }
+
+    // EVAL VISITOR
+
+    @Test
+    public void evalConstExprTest() {
+        EvalVisitor evalVisitor = new EvalVisitor(); assertTrue(TRUE.accept(evalVisitor));
+        assertFalse(FALSE.accept(evalVisitor));
+    }
+
+    @Test
+    public void evalVarTest() {
+        EvalVisitor evalVisitor = new EvalVisitor(); evalVisitor.setVar(new Var("f"), false);
+        evalVisitor.setVar(new Var("t"), true); evalVisitor.setVar(X, true); evalVisitor.setVar(Y, false);
+        assertFalse(evalVisitor.getVar(new Var("f"))); assertTrue(evalVisitor.getVar(new Var("t")));
+
+        assertFalse(new Var("f").accept(evalVisitor)); assertTrue(new Var("t").accept(evalVisitor));
+        assertTrue(X.accept(evalVisitor)); assertFalse(Y.accept(evalVisitor));
+    }
+
+    @Test(expected = UnknownVarException.class)
+    public void evalUnknownVarTest() {
+        EvalVisitor evalVisitor = new EvalVisitor(); X.accept(evalVisitor);
+    }
+
+    @Test
+    public void evalAndTest() {
+        EvalVisitor evalVisitor = new EvalVisitor(); assertFalse(new AndExpr(FALSE, FALSE).accept(evalVisitor));
+        assertFalse(new AndExpr(FALSE, TRUE).accept(evalVisitor));
+        assertFalse(new AndExpr(TRUE, FALSE).accept(evalVisitor));
+        assertTrue(new AndExpr(TRUE, TRUE).accept(evalVisitor));
+    }
+
+    @Test
+    public void evalEqualsTest() {
+        EvalVisitor evalVisitor = new EvalVisitor(); assertTrue(new EqualsExpr(FALSE, FALSE).accept(evalVisitor));
+        assertFalse(new EqualsExpr(FALSE, TRUE).accept(evalVisitor));
+        assertFalse(new EqualsExpr(TRUE, FALSE).accept(evalVisitor));
+        assertTrue(new EqualsExpr(TRUE, TRUE).accept(evalVisitor));
+    }
+
+    @Test
+    public void evalOrTest() {
+        EvalVisitor evalVisitor = new EvalVisitor(); assertFalse(new OrExpr(FALSE, FALSE).accept(evalVisitor));
+        assertTrue(new OrExpr(FALSE, TRUE).accept(evalVisitor));
+        assertTrue(new OrExpr(TRUE, FALSE).accept(evalVisitor)); assertTrue(new OrExpr(TRUE, TRUE).accept(evalVisitor));
+    }
+
+    @Test
+    public void evalXorTest() {
+        EvalVisitor evalVisitor = new EvalVisitor(); assertFalse(new XorExpr(FALSE, FALSE).accept(evalVisitor));
+        assertTrue(new XorExpr(FALSE, TRUE).accept(evalVisitor));
+        assertTrue(new XorExpr(TRUE, FALSE).accept(evalVisitor));
+        assertFalse(new XorExpr(TRUE, TRUE).accept(evalVisitor));
+    }
+
+    @Test
+    public void evalNotTest() {
+        EvalVisitor evalVisitor = new EvalVisitor(); assertFalse(new NotExpr(TRUE).accept(evalVisitor));
+        assertTrue(new NotExpr(FALSE).accept(evalVisitor));
+    }
+
+    @Test
+    public void evalExprVarTest() {
+        EvalVisitor evalVisitor = new EvalVisitor();
+
+        evalVisitor.setVar(X, false); evalVisitor.setVar(Y, false); assertTrue(new NotExpr(X).accept(evalVisitor));
+        assertFalse(new AndExpr(X, Y).accept(evalVisitor)); assertTrue(new EqualsExpr(X, Y).accept(evalVisitor));
+        assertFalse(new OrExpr(X, Y).accept(evalVisitor)); assertFalse(new XorExpr(X, Y).accept(evalVisitor));
+
+        evalVisitor.setVar(Y, true); assertFalse(new AndExpr(X, Y).accept(evalVisitor));
+        assertFalse(new EqualsExpr(X, Y).accept(evalVisitor)); assertTrue(new OrExpr(X, Y).accept(evalVisitor));
+        assertTrue(new XorExpr(X, Y).accept(evalVisitor));
+
+        evalVisitor.setVar(X, true); evalVisitor.setVar(Y, false); assertFalse(new NotExpr(X).accept(evalVisitor));
+        assertFalse(new AndExpr(X, Y).accept(evalVisitor)); assertFalse(new EqualsExpr(X, Y).accept(evalVisitor));
+        assertTrue(new OrExpr(X, Y).accept(evalVisitor)); assertTrue(new XorExpr(X, Y).accept(evalVisitor));
+
+        evalVisitor.setVar(Y, true); assertTrue(new AndExpr(X, Y).accept(evalVisitor));
+        assertTrue(new EqualsExpr(X, Y).accept(evalVisitor)); assertTrue(new OrExpr(X, Y).accept(evalVisitor));
+        assertFalse(new XorExpr(X, Y).accept(evalVisitor));
+    }
+
+    // VAREXTRACT VISITOR
+
+    @Test
+    public void nothingToExtractTest() {
+        VarExtractVisitor varExtractVisitor = new VarExtractVisitor();
+        assertTrue(varExtractVisitor.getVars().isEmpty()); TRUE.accept(varExtractVisitor);
+        assertTrue(varExtractVisitor.getVars().isEmpty()); FALSE.accept(varExtractVisitor);
+        assertTrue(varExtractVisitor.getVars().isEmpty()); new AndExpr(TRUE, TRUE).accept(varExtractVisitor);
+        new EqualsExpr(TRUE, TRUE).accept(varExtractVisitor); new OrExpr(TRUE, TRUE).accept(varExtractVisitor);
+        new XorExpr(TRUE, TRUE).accept(varExtractVisitor); new NotExpr(TRUE).accept(varExtractVisitor);
+        assertTrue(varExtractVisitor.getVars().isEmpty());
+    }
+
+    @Test
+    public void simpleVarExtractTest() {
+        final Var x = new Var("x"); final Var y = new Var("y");
+        VarExtractVisitor varExtractVisitor = new VarExtractVisitor();
+        assertTrue(varExtractVisitor.getVars().isEmpty()); x.accept(varExtractVisitor);
+        assertEquals(1, varExtractVisitor.getVars().size()); assertEquals(Set.of(x), varExtractVisitor.getVars());
+        x.accept(varExtractVisitor); assertEquals(1, varExtractVisitor.getVars().size());
+        assertEquals(Set.of(x), varExtractVisitor.getVars()); y.accept(varExtractVisitor);
+        assertEquals(2, varExtractVisitor.getVars().size()); assertEquals(Set.of(x, y), varExtractVisitor.getVars());
+        y.accept(varExtractVisitor); assertEquals(2, varExtractVisitor.getVars().size());
+        assertEquals(Set.of(x, y), varExtractVisitor.getVars());
+    }
+
+    @Test
+    public void complexVarExtractTest() {
+        final Var a = new Var("a"); final Var b = new Var("b"); final Var c = new Var("c"); final Var d = new Var("d");
+        Expr e = new NotExpr(new AndExpr(new OrExpr(new EqualsExpr(a, b), c), new XorExpr(d, TRUE)));
+        VarExtractVisitor varExtractVisitor = new VarExtractVisitor();
+        assertTrue(varExtractVisitor.getVars().isEmpty()); e.accept(varExtractVisitor);
+        assertEquals(4, varExtractVisitor.getVars().size());
+        assertEquals(Set.of(a, b, c, d), varExtractVisitor.getVars());
+    }
+
+    // TRUTHTABLE
+
+    @Test
+    public void noVarTableTest() {
+        final TruthTable truthTable = new TruthTable(); truthTable.addExpr(new AndExpr(TRUE, FALSE));
+        assertEquals(TRUE_AND_FALSE_TABLE, truthTable.toString());
+    }
+
+    @Test
+    public void varTableTest() {
+        final TruthTable truthTable = new TruthTable(); truthTable.addExpr(new Var("x"));
+        assertEquals(VAR_TABLE, truthTable.toString());
+    }
+
+    @Test
+    public void exampleTest() {
+        final TruthTable truthTable = new TruthTable(); final Var x = new Var("x"); final Var y = new Var("y");
+        truthTable.addExpr(new AndExpr(x, y)); truthTable.addExpr(new EqualsExpr(x, y));
+        truthTable.addExpr(new NotExpr(x)); truthTable.addExpr(new OrExpr(x, y)); truthTable.addExpr(new XorExpr(x, y));
+        assertEquals(EXAMPLE_TABLE, truthTable.toString());
+    }
+
+    @Test
+    public void manyExprTest() {
+        final TruthTable truthTable = new TruthTable(); final Var x = new Var("x"); final Var y = new Var("y");
+        truthTable.addExpr(new AndExpr(x, y)); assertEquals(Set.of(x, y), truthTable.getVars());
+        truthTable.addExpr(new EqualsExpr(x, y)); truthTable.addExpr(new NotExpr(x));
+        truthTable.addExpr(new OrExpr(x, y)); truthTable.addExpr(new XorExpr(x, y));
+
+        final Var ab = new Var("ab"); final Var cde = new Var("cde"); truthTable.addExpr(new AndExpr(ab, cde));
+        assertEquals(Set.of(x, y, ab, cde), truthTable.getVars()); truthTable.addExpr(new EqualsExpr(ab, cde));
+        truthTable.addExpr(new NotExpr(ab)); truthTable.addExpr(new OrExpr(ab, cde));
+        truthTable.addExpr(new XorExpr(ab, cde)); assertEquals(MANY_VARS_TABLE, truthTable.toString());
+
+        assertEquals(Set.of(x, y, ab, cde), truthTable.getVars());
+    }
+
+    @Test
+    public void longNameTest() {
+        final TruthTable truthTable = new TruthTable(); final Var longNameVar = new Var("abcdefghijklmnopqrstuvwxyz");
+        truthTable.addExpr(new NotExpr(longNameVar)); assertEquals(LONG_NAME_TABLE, truthTable.toString());
+    }
+
+    // NORMAL FORM
+
+    @Test
+    public void normalFormAndAssignmentsTest() {
+        NormalForm nf1 = new DummyNormalForm(X_AND_Y); VarAssignment a1 = new VarAssignment(); a1.setVar(X, true);
+        a1.setVar(Y, true); assertEquals(List.of(a1), nf1.getTrueAssignments()); VarAssignment a2 = new VarAssignment();
+        a2.setVar(X, false); a2.setVar(Y, false); VarAssignment a3 = new VarAssignment(); a3.setVar(X, false);
+        a3.setVar(Y, true); VarAssignment a4 = new VarAssignment(); a4.setVar(X, true); a4.setVar(Y, false);
+        assertEquals(List.of(a2, a3, a4), nf1.getFalseAssignments());
+    }
+
+    @Test
+    public void normalFormOrAssignmentsTest() {
+        NormalForm nf1 = new DummyNormalForm(X_OR_Y); VarAssignment a1 = new VarAssignment(); a1.setVar(X, false);
+        a1.setVar(Y, false); assertEquals(List.of(a1), nf1.getFalseAssignments());
+        VarAssignment a2 = new VarAssignment(); a2.setVar(X, false); a2.setVar(Y, true);
+        VarAssignment a3 = new VarAssignment(); a3.setVar(X, true); a3.setVar(Y, false);
+        VarAssignment a4 = new VarAssignment(); a4.setVar(X, true); a4.setVar(Y, true);
+        assertEquals(List.of(a2, a3, a4), nf1.getTrueAssignments());
+    }
+
+    @Test
+    public void disjunctiveNormalFormTest() {
+        List<Expr> exprList = List.of(new AndExpr(new Var("x"), new Var("y")), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z")), new AndExpr(new Var("x"), new AndExpr(new Var("y"), new Var("z"))), new OrExpr(new Var("x"), new Var("y")), new OrExpr(new OrExpr(new Var("x"), new Var("y")), new Var("z")), new OrExpr(new Var("x"), new OrExpr(new Var("y"), new Var("z"))));
+
+        List<Expr> dnfList = List.of(new AndExpr(new Var("x"), new Var("y")), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z")), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z")), new OrExpr(new OrExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new AndExpr(new Var("x"), new NotExpr(new Var("y")))), new AndExpr(new Var("x"), new Var("y"))), new OrExpr(new OrExpr(new OrExpr(new OrExpr(new OrExpr(new OrExpr(new AndExpr(new AndExpr(new NotExpr(new Var("x")), new NotExpr(new Var("y"))), new Var("z")), new AndExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new Var("z"))), new AndExpr(new AndExpr(new Var("x"), new NotExpr(new Var("y"))), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new Var("x"), new NotExpr(new Var("y"))), new Var("z"))), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z"))), new OrExpr(new OrExpr(new OrExpr(new OrExpr(new OrExpr(new OrExpr(new AndExpr(new AndExpr(new NotExpr(new Var("x")), new NotExpr(new Var("y"))), new Var("z")), new AndExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new NotExpr(new Var("x")), new Var("y")), new Var("z"))), new AndExpr(new AndExpr(new Var("x"), new NotExpr(new Var("y"))), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new Var("x"), new NotExpr(new Var("y"))), new Var("z"))), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new NotExpr(new Var("z")))), new AndExpr(new AndExpr(new Var("x"), new Var("y")), new Var("z"))));
+
+        for (int i = 0; i < exprList.size(); ++i)
+            assertEquals(dnfList.get(i), new DisjunctiveNormalForm(exprList.get(i)).normalize());
+    }
 }

@@ -57,53 +57,56 @@ public class InfixVisitor implements Visitor<String> {
 
     /**
      * Unbedingt nochmal angucken!
-     * @param visit
+     * Composite Pattern kombiniert mit Visitor-Pattern
+     * Composite liefert modellierte Datenstruktur (liefert verschachtelte Ausdrücke)
+     * Visitor erlaubt an einer zentralen Stelle einer neuen Visitor Klasse in dieser Datenstruktur Funktionalitäten
+     * zu schreiben
+     * Man muss nicht die toString Methode in jedes der Expr schreiben, sondern man macht einen Visitor, der darauf
+     * zugreifen kann
+     * @param expr
      * @return
      */
     @Override
-    public String visit(AndExpr visit) {
-        return "(" + visit.getLeftOperand().accept(this) + " " + and +
-               " " + visit.getRightOperand().accept(this) + ")";
+    public String visit(AndExpr expr) {
+        return "(" + expr.getLeftOperand().accept(this) + " " + and +
+               " " + expr.getRightOperand().accept(this) + ")";
     }
 
-    public String visit(EqualsExpr visit) {
-        return "(" + visit.getLeftOperand().accept(this) + " " + equals +
-               " " + visit.getRightOperand().accept(this) + ")";
+    public String visit(EqualsExpr expr) {
+        return "(" + expr.getLeftOperand().accept(this) + " " + equals +
+               " " + expr.getRightOperand().accept(this) + ")";
     }
 
-    public String visit(NotExpr visit) {
-        return "(" + not +
-               " " + visit.getOperand().accept(this) + ")";
+    public String visit(NotExpr expr) {
+        return not + expr.getOperand().accept(this);
     }
 
-    public String visit(OrExpr visit) {
-        return "(" + visit.getLeftOperand().accept(this) + " " + or +
-               " " + visit.getRightOperand().accept(this) + ")";
+    public String visit(OrExpr expr) {
+        return "(" + expr.getLeftOperand().accept(this) + " " + or +
+               " " + expr.getRightOperand().accept(this) + ")";
     }
 
-    public String visit(XorExpr visit) {
-        return "(" + visit.getLeftOperand().accept(this) + " " + xor +
-               " " + visit.getRightOperand().accept(this) + ")";
+    public String visit(XorExpr expr) {
+        return "(" + expr.getLeftOperand().accept(this) + " " + xor +
+               " " + expr.getRightOperand().accept(this) + ")";
     }
 
     /**
-     * @param visit In dem Moment, in dem dieses Objekt mit einem Const Parameter aufgerufen wird, wird ein Const-Objekt
-     *              draus
+     * @param expr In dem Moment, in dem dieses Objekt mit einem Const Parameter aufgerufen wird, wird ein Const-Objekt
+     *             draus
      * @return
      */
     @Override
-    public String visit(Const visit) {
-        return visit.toString();
+    public String visit(Const expr) {
+        return expr.toString();
     }
 
-
     /**
-     * @param visit
+     * @param expr
      * @return Gibt String aus, einfacher Fall, weil keine Ausdrücke/Composite drin
      */
     @Override
-    public String visit(Var visit) {
-        return visit.toString();
+    public String visit(Var expr) {
+        return expr.toString();
     }
-
 }

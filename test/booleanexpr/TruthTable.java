@@ -47,5 +47,66 @@
 
 package booleanexpr;
 
+import booleanexpr.expr.EvalVisitor;
+import booleanexpr.expr.Expr;
+import booleanexpr.expr.InfixVisitor;
+import booleanexpr.expr.Var;
+import booleanexpr.expr.VarAssignment;
+import booleanexpr.expr.VarExtractVisitor;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 public class TruthTable {
+    List<Expr> listExpr = new ArrayList<>();
+    VarExtractVisitor varExtractVisitor = new VarExtractVisitor();
+    EvalVisitor evalVisitor = new EvalVisitor();
+    InfixVisitor infixVisitor = new InfixVisitor();
+    VarAssignment varAss = new VarAssignment();
+
+
+    public void addExpr(Expr expr) {
+        listExpr.add(expr); expr.accept(varExtractVisitor);
+    }
+
+    public Set<Var> getVars() {
+        return varExtractVisitor.getVars();
+    }
+
+    /**
+     * 1. Schleife: Für jede Variable, schreibe Name
+     * 2. Schleife: Für jeden Ausdruck, schreibe "e"+i
+     * 3. Schleife: Für jede Variable, schreibe Trennlinie, für jeden Ausdruck schreibe Trennlinie
+     * 4. Schleife:
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(); int i = 1; sb.append("|"); for (Var v : getVars()) {
+            sb.append(" "); sb.append(v.getName()); sb.append(" "); sb.append("|");
+        } for (Expr expr : listExpr) {
+            sb.append(" "); sb.append("e" + i); i++; sb.append(" "); sb.append("|");
+        } sb.append(System.lineSeparator());
+        sb.append("+"); for (Var v : getVars()) {
+            sb.append("---"); sb.append("+");
+        } for (Expr expr : listExpr) {
+            sb.append("---"); sb.append("+");
+        } sb.append(System.lineSeparator());
+
+        for (Var var: getVars()){
+            varAss.setVar(var, false);
+        }
+        Iterator<VarAssignment> it = varAss.iterator();
+        while (it.hasNext()){
+            it.next(); // Objekt, das zurückkommt ist ein VarAssignment; Schleife bestimmt Anzahl der Zeilen,
+            // die noch kommen; Bei 100 Expressions =>
+        }
+
+
+        return sb.toString();
+
+    }
 }

@@ -27,4 +27,5 @@ package booleanexpr.expr;
 
 public interface Expr {
 
+    <T> T accept(Visitor visitor);
 }

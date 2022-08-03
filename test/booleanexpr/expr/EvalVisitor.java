@@ -2,7 +2,7 @@
  * A2-BooleanExpr
  * 2022-07-28
  * VP
- *
+ * <p>
  * Aufgabe 5
  * Eine weitere Implementierung des Visitors hat die Auswertung von booleschen Ausdrücken zum
  * Ziel. Implementieren Sie den EvalVisitor im Package booleanexpr.expr so, dass ein Expr-
@@ -17,43 +17,54 @@
  * bei der Auswertung eines Ausdrucks fehlt, soll eine UnknownVarException geworfen werden.
  * Hinweis: Denken Sie daran, das Sie bereits eine Klasse zur Zuweisung von Variablenbelegungen
  * implementiert haben.
+ * expr.accept(evalvisit)
  */
 
 package booleanexpr.expr;
 
-public class EvalVisitor implements Visitor{
+public class EvalVisitor implements Visitor<Boolean> {
+    VarAssignment visitVarAss = new VarAssignment();
+
     @Override
-    public Object visit(AndExpr visit) {
-        return null;
+    public Boolean visit(AndExpr expr) {
+        return (Boolean) expr.getLeftOperand().accept(this) & (Boolean) expr.getRightOperand().accept(this);
     }
 
     @Override
-    public Object visit(Const visit) {
-        return null;
+    public Boolean visit(Const expr) {
+        return expr.isValue();
     }
 
     @Override
-    public Object visit(EqualsExpr visit) {
-        return null;
+    public Boolean visit(EqualsExpr expr) {
+        return (Boolean) expr.getLeftOperand().accept(this) == (Boolean) expr.getRightOperand().accept(this);
     }
 
     @Override
-    public Object visit(NotExpr visit) {
-        return null;
+    public Boolean visit(NotExpr expr) {
+        return !(Boolean) expr.getOperand().accept(this);
     }
 
     @Override
-    public Object visit(OrExpr visit) {
-        return null;
+    public Boolean visit(OrExpr expr) {
+        return (Boolean) expr.getLeftOperand().accept(this) | (Boolean) expr.getRightOperand().accept(this);
     }
 
     @Override
-    public Object visit(Var visit) {
-        return null;
+    public Boolean visit(Var expr) {
+        return getVar(expr);
     }
 
     @Override
-    public Object visit(XorExpr visit) {
-        return null;
+    public Boolean visit(XorExpr expr) {
+        return (Boolean) expr.getLeftOperand().accept(this) ^ (Boolean) expr.getRightOperand().accept(this);
+    }
+
+    public void setVar(Var var, boolean value) {
+        visitVarAss.setVar(var, value);
+    }
+
+    public Boolean getVar(Var var) throws UnknownVarException {
+        if (!(visitVarAss.isAssigned(var))) throw new UnknownVarException(); return visitVarAss.getAssignment(var);
     }
 }

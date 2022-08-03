@@ -35,5 +35,14 @@
 
 package booleanexpr;
 
+import java.util.List;
+
 public class NormalForm {
+    public <E> List<E> getTrueAssignments() {
+        return null;
+    }
+
+    public <E> List<E> getFalseAssignments() {
+        return null;
+    }
 }

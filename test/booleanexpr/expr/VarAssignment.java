@@ -31,7 +31,7 @@
  * Variable gewechselt usw. Dieses System wird bis zur lexikographisch kleinsten Variable
  * fortgesetzt (siehe Tabelle 1).
  * Jeder Aufruf von next() liefert ein neues VarAssignment-Objekt zurück. Insbesondere wird
- * die Varaiblenbelegung desjenigen VarAssignment-Objekt, für das die iterator()-Methode
+ * die Variablenbelegung desjenigen VarAssignment-Objekt, für das die iterator()-Methode
  * aufgerufen wird, dadurch nicht verändert!
  * f) equals(Object) – liefert true zurück, falls das andere Objekt vom Typ VarAssignment ist
  * und sich dieses auf die gleichen Variablen mit den jeweils gleichen Wertebelegungen bezieht.
@@ -40,5 +40,156 @@
 
 package booleanexpr.expr;
 
-public class VarAssignment {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+public class VarAssignment implements Iterable {
+
+    Map<Var, Boolean> map = new HashMap<>();
+    List<Var> list = new ArrayList<>();
+
+    /**
+     * Trägt Belegung vom Ausdruck und Boolean in die Map ein
+     *
+     * @param var
+     * @param bool
+     */
+    public void setVar(Var var, boolean bool) {
+        map.put(var, bool); if (!(list.contains(var))) {
+            list.add(var);
+        }
+    }
+
+    public Boolean isAssigned(Var var) {
+        if (map.containsKey(var)) return true;
+        else return false;
+    }
+
+    /**
+     * @param var
+     * @return gibt Wert (Boolean) der Belegung zurück, get-Methode von Klasse Maps greift auf Werte zu, welche
+     * per put-Methode eingetragen worden sind, siehe setVar-Methode
+     * @throws UnknownVarException
+     */
+    public Boolean getAssignment(Var var) throws UnknownVarException {
+        if (map.containsKey(var)) return map.get(var);
+        else throw new UnknownVarException();
+    }
+
+    /**
+     * Das Var, also die Klasse Var kennt keinen Vgl. zw. anderen Variablen, deswegen wird ein neues compareto
+     * geschrieben, um die Variablen zu vgl. => weil es eigentlich AUSDRÜCKE sind! (Expr)
+     *
+     * @return
+     */
+    public List<Var> getVars() {
+        Collections.sort(list); return list;
+    }
+
+    /**
+     * Bei Verwendung des Interfaces, muss ein eigene Iterator-Klasse geschrieben werden
+     * Die können lokal geschrieben werden
+     *
+     * @return
+     */
+    public Iterator<VarAssignment> iterator() {
+        Iterator<VarAssignment> iterator = new VarIterator(getVars()); return iterator;
+    }
+
+    public class VarIterator implements Iterator<VarAssignment> {
+
+        VarAssignment varAss;
+        VarAssignment[] varAssArr;
+        int c = -1;
+
+        /**
+         * varAssArr muss in der Größe definiert werden
+         * Definition im Konstruktor anhand der Listengröße
+         * Schleife rückwärts laufen (siehe j-For-Schleife)
+         * i zählt next Aufrufe der Tabelle (spaltenweise)
+         * j zählt Variablen rückwärts, also von unten (zeilenweise)
+         *
+         * @param list
+         */
+        public VarIterator(List<Var> list) {
+            this.varAssArr = new VarAssignment[(int) Math.pow(2, list.size())];
+            for (int i = 0; i < varAssArr.length; i++) {
+                varAssArr[i] = this.varAss = new VarAssignment(); for (Var var : list) {
+                    varAss.setVar(var, false);
+                }
+            } for (int i = 1; i < varAssArr.length; i++) {
+                List<Var> varAssTList = new ArrayList<>();
+                for (int j = varAssArr[i - 1].getVars().size() - 1; j >= 0; j--) {
+                    Var v = varAssArr[i - 1].getVars().get(j); //in v steht das z
+                    if (varAssArr[i - 1].getAssignment(v) == false) {
+                        varAssArr[i].setVar(v, true); //verändere Wert
+                        for (Var var : varAssTList) {
+                            varAssArr[i].setVar(var, false);
+                        } break;
+                    }
+                    else {
+                        varAssTList.add(v);
+                    }
+                }
+                if (i == varAssArr.length - 1) {
+                    for (Var v : varAssArr[i].getVars()) {
+                        varAssArr[i].setVar(v, true);
+                    } break;
+                }
+            }
+        }
+
+        /**
+         * in der for-Schleife geht er die Werte der Variablen durch und fragt ab, ob gleich false
+         * off by 1 Error, Verrechnung um 1
+         * @return false, wenn alle Variablen true sind
+         */
+        @Override
+        public boolean hasNext() {
+            if (c == -1) {
+                for (Var var : varAssArr[c+1].list) {
+                    if (varAssArr[c+1].getAssignment(var) == false) {
+                        return true;
+                    } ;
+                } return false;
+            } for (Var var : varAssArr[c].list) {
+                if (varAssArr[c].getAssignment(var) == false) {
+                    return true;
+                } ;
+            } return false;
+        }
+
+        /**
+         * Man schreibt sich ein Array vom Typ varAss
+         * Größe 2^n
+         * Stelle 0: varAss alle Variablen false
+         * Stelle 2^n-1: varAss alle Variablen true
+         * An Stelle 0: Ausgabe
+         * An Stelle n: Ausgabe
+         *
+         * @return
+         */
+        @Override
+        public VarAssignment next() {
+            return varAssArr[++c];
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VarAssignment that = (VarAssignment) o;
+        return Objects.equals(map, that.map) && Objects.equals(list, that.list);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(map, list);
+    }
 }

@@ -11,39 +11,67 @@
 
 package booleanexpr.expr;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class VarExtractVisitor implements Visitor{
+    Set<Var> var = new HashSet<>();
     @Override
-    public Object visit(AndExpr visit) {
+    public Object visit(AndExpr expr) {
+        expr.getLeftOperand().accept(this);
+        expr.getRightOperand().accept(this);
+        return null;
+    }
+
+    /**
+     *
+     * @param expr unterschiedlichen Typs, wenn unterschiedlichen Typen erkannt,
+     *             springt diese in die jeweiligen visits rein und führt den Code aus
+     * @return null, weil in Const keine Variablen vorkommen
+     */
+    @Override
+    public Object visit(Const expr) {
         return null;
     }
 
     @Override
-    public Object visit(Const visit) {
+    public Object visit(EqualsExpr expr) {
+        expr.getLeftOperand().accept(this);
+        expr.getRightOperand().accept(this);
         return null;
     }
 
     @Override
-    public Object visit(EqualsExpr visit) {
+    public Object visit(NotExpr expr) {
+        expr.getOperand().accept(this);
         return null;
     }
 
     @Override
-    public Object visit(NotExpr visit) {
+    public Object visit(OrExpr expr) {
+        expr.getLeftOperand().accept(this);
+        expr.getRightOperand().accept(this);
         return null;
     }
 
     @Override
-    public Object visit(OrExpr visit) {
+    public Object visit(Var expr) {
+        var.add(expr);
         return null;
     }
 
     @Override
-    public Object visit(Var visit) {
+    public Object visit(XorExpr expr) {
+        expr.getLeftOperand().accept(this);
+        expr.getRightOperand().accept(this);
         return null;
     }
 
-    @Override
-    public Object visit(XorExpr visit) {
-        return null;
+    /**
+     *
+     * @return var als Set<Var> muss zurückgegeben werden, Sets sind bestimmte Listen, nachlesen!
+     */
+    public Set<Var> getVars(){
+        return var;
     }
 }

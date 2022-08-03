@@ -31,7 +31,7 @@
 
 package booleanexpr.expr;
 
-public class PrefixVisitor implements Visitor{
+public class PrefixVisitor implements Visitor<String> {
     String and;
     String equals;
     String not;
@@ -40,6 +40,7 @@ public class PrefixVisitor implements Visitor{
 
     /**
      * Speichert die Konstruktor-Parameter als Attribute
+     *
      * @param and
      * @param equals
      * @param not
@@ -54,38 +55,59 @@ public class PrefixVisitor implements Visitor{
         this.and = "&"; this.equals = "=="; this.not = "!"; this.or = "|"; this.xor = "^";
     }
 
+    /**
+     * Unbedingt nochmal angucken!
+     * Composite Pattern kombiniert mit Visitor-Pattern
+     * Composite liefert modellierte Datenstruktur (liefert verschachtelte Ausdrücke)
+     * Visitor erlaubt an einer zentralen Stelle einer neuen Visitor Klasse in dieser Datenstruktur Funktionalitäten
+     * zu schreiben
+     * Man muss nicht die toString Methode in jedes der Expr schreiben, sondern man macht einen Visitor, der darauf
+     * zugreifen kann
+     *
+     * @param expr
+     * @return
+     */
     @Override
-    public Object visit(AndExpr visit) {
-        return null;
+    public String visit(AndExpr expr) {
+        return and + " " + expr.getLeftOperand().accept(this)
+               + " " + expr.getRightOperand().accept(this);
     }
 
-    @Override
-    public Object visit(Const visit) {
-        return null;
+    public String visit(EqualsExpr expr) {
+        return equals + " " + expr.getLeftOperand().accept(this)
+               + " " + expr.getRightOperand().accept(this);
     }
 
-    @Override
-    public Object visit(EqualsExpr visit) {
-        return null;
+    public String visit(NotExpr expr) {
+        return not + " " + expr.getOperand().accept(this);
     }
 
-    @Override
-    public Object visit(NotExpr visit) {
-        return null;
+    public String visit(OrExpr expr) {
+        return or + " " + expr.getLeftOperand().accept(this)
+               + " " + expr.getRightOperand().accept(this);
     }
 
-    @Override
-    public Object visit(OrExpr visit) {
-        return null;
+    public String visit(XorExpr expr) {
+        return xor + " " + expr.getLeftOperand().accept(this)
+               + " " + expr.getRightOperand().accept(this);
     }
 
+    /**
+     * @param expr In dem Moment, in dem dieses Objekt mit einem Const Parameter aufgerufen wird, wird ein Const-Objekt
+     *             draus
+     * @return
+     */
     @Override
-    public Object visit(Var visit) {
-        return null;
+    public String visit(Const expr) {
+        return expr.toString();
     }
 
+    /**
+     * @param expr
+     * @return Gibt String aus, einfacher Fall, weil keine Ausdrücke/Composite drin
+     */
     @Override
-    public Object visit(XorExpr visit) {
-        return null;
+    public String visit(Var expr) {
+        return expr.toString();
     }
 }

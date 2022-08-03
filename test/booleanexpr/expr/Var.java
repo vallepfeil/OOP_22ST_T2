@@ -14,7 +14,7 @@ package booleanexpr.expr;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Var implements Expr, Comparable {
+public class Var implements Expr, Comparable<Var> {
     String name;
 
     /**
@@ -65,8 +65,8 @@ public class Var implements Expr, Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(Var var) {
+        return name.compareTo(var.getName());
     }
 
     /**
