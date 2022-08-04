@@ -55,24 +55,31 @@ import booleanexpr.expr.VarAssignment;
 import booleanexpr.expr.VarExtractVisitor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 public class TruthTable {
     List<Expr> listExpr = new ArrayList<>();
+    List<Var> listVars = new ArrayList<>(); //LM
     VarExtractVisitor varExtractVisitor = new VarExtractVisitor();
     EvalVisitor evalVisitor = new EvalVisitor();
     InfixVisitor infixVisitor = new InfixVisitor();
     VarAssignment varAss = new VarAssignment();
 
-
     public void addExpr(Expr expr) {
-        listExpr.add(expr); expr.accept(varExtractVisitor);
+        listExpr.add(expr); expr.accept(varExtractVisitor); listVars = varExtractVisitor.getVars().stream().toList(); //LM
     }
 
     public Set<Var> getVars() {
-        return varExtractVisitor.getVars();
+        Set<Var> set = new HashSet<>();
+        for(Var v : listVars){
+            set.add(v);
+        }
+        return set;
+        //LM
+        //return varExtractVisitor.getVars();
     }
 
     /**
@@ -96,17 +103,76 @@ public class TruthTable {
             sb.append("---"); sb.append("+");
         } sb.append(System.lineSeparator());
 
-        for (Var var: getVars()){
+        for (Var var : getVars()) {
             varAss.setVar(var, false);
         }
         Iterator<VarAssignment> it = varAss.iterator();
-        while (it.hasNext()){
-            it.next(); // Objekt, das zurückkommt ist ein VarAssignment; Schleife bestimmt Anzahl der Zeilen,
-            // die noch kommen; Bei 100 Expressions =>
+        while (it.hasNext()) {
+/*            it.next(); // Objekt, das zurückkommt ist ein VarAssignment; Schleife bestimmt Anzahl der Zeilen,
+              VP
+            // die noch kommen; Bei 100 Expressions =>*/
+            VarAssignment var = it.next();
+            sb.append(System.lineSeparator()+"|");
+            for(Var v : listVars){
+                boolean ass = var.getAssignment(v);
+                sb.append(" ");
+                for(int j = 0; j < v.getName().length()/2; j++){
+                    sb.append(" ");
+                }
+                if(ass){
+                    sb.append("T");
+                }else{
+
+                    sb.append("F");
+                }
+                for(int j = 0; j < v.getName().length()/2; j++){
+                    sb.append(" ");
+                }
+                if(!(v.getName().length() % 2 == 0)){
+                    sb.append(" ");
+                }
+                sb.append("|");
+            }
+            i = 1;
+            for(Expr expr : listExpr){
+                evalVisitor = new EvalVisitor();
+                for(Var v : var.getVars()){
+                    evalVisitor.setVar(v,var.getAssignment(v));
+                }
+                boolean eval = expr.accept(evalVisitor);
+                String s = "e" + i;
+                int j = s.length();
+                sb.append(" ");
+                for(int k = 0; k < j/2; k++){
+                    sb.append(" ");
+                }
+                if(eval){
+                    sb.append("T");
+                }else{
+                    sb.append("F");
+                }
+                for(int k = 0; k < j/2; k++){
+                    sb.append(" ");
+                }
+                if(!(j % 2 == 0)){
+                    sb.append(" ");
+                }
+                sb.append("|");
+                i++;
+            }
+
         }
+        i = 1;
+        for(Expr expr : listExpr){
+            sb.append(System.lineSeparator()+"e"+i+" = ");
+            sb.append((String)expr.accept(infixVisitor));
+            i++;
+        }
+        sb.append(System.lineSeparator());
 
-
+        if(listExpr.isEmpty()){
+            return "no expressions defined";
+        }
         return sb.toString();
-
     }
 }
