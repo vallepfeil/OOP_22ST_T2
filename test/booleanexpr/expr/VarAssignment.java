@@ -135,8 +135,7 @@ public class VarAssignment implements Iterable {
                     else {
                         varAssTList.add(v);
                     }
-                }
-                if (i == varAssArr.length - 1) {
+                } if (i == varAssArr.length - 1) {
                     for (Var v : varAssArr[i].getVars()) {
                         varAssArr[i].setVar(v, true);
                     } break;
@@ -148,13 +147,14 @@ public class VarAssignment implements Iterable {
          * in der for-Schleife geht er die Werte der Variablen durch und fragt ab, ob gleich false
          * off by 1 Error, Verrechnung um 1
          * Sagt ob man am Ende angekommen ist, Abbruchbedingung für die Schleife
+         *
          * @return false, wenn alle Variablen true sind
          */
         @Override
         public boolean hasNext() {
             if (c == -1) {
-                for (Var var : varAssArr[c+1].list) {
-                    if (varAssArr[c+1].getAssignment(var) == false) {
+                for (Var var : varAssArr[c + 1].list) {
+                    if (varAssArr[c + 1].getAssignment(var) == false) {
                         return true;
                     } ;
                 } return false;
@@ -183,10 +183,8 @@ public class VarAssignment implements Iterable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        VarAssignment that = (VarAssignment) o;
-        return Objects.equals(map, that.map) && Objects.equals(list, that.list);
+        if (this == o) return true; if (o == null || getClass() != o.getClass()) return false;
+        VarAssignment that = (VarAssignment) o; return Objects.equals(map, that.map) && Objects.equals(list, that.list);
     }
 
     @Override
