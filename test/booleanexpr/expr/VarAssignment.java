@@ -147,6 +147,7 @@ public class VarAssignment implements Iterable {
         /**
          * in der for-Schleife geht er die Werte der Variablen durch und fragt ab, ob gleich false
          * off by 1 Error, Verrechnung um 1
+         * Sagt ob man am Ende angekommen ist, Abbruchbedingung für die Schleife
          * @return false, wenn alle Variablen true sind
          */
         @Override

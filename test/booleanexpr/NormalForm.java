@@ -35,14 +35,82 @@
 
 package booleanexpr;
 
+import booleanexpr.expr.EvalVisitor;
+import booleanexpr.expr.Expr;
+import booleanexpr.expr.Var;
+import booleanexpr.expr.VarAssignment;
+import booleanexpr.expr.VarExtractVisitor;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class NormalForm {
-    public <E> List<E> getTrueAssignments() {
-        return null;
+public abstract class NormalForm {
+    private Expr expr;
+    private Set<Var> vars;
+
+    /**
+     * Man hat eine abstrakte Klasse mit einem Konstruktor, nicht um ein Objekt zu erstellen
+     * sondern weil bei der b) eine konkrete Unterklasse geschrieben wird, welche den Konstruktor nutzt,
+     * um Code auszulagern
+     * Sonst müssten in den Unterklassen Konstruktoren implementiert werden
+     *
+     * @param expr boolescher Ausdruck als Expr Objekt
+     * @var vars Variable, aber kein Parameter vom Konstruktur: Speichert in die Variable, Konstruktor erstellt
+     * bereits Visitor, um die Variablen zu extrahieren als Speicherreferenz in das Set (keine Liste)
+     */
+    public NormalForm(Expr expr) {
+        this.expr = expr;
+
+        VarExtractVisitor varExtractVisit = new VarExtractVisitor(); expr.accept(varExtractVisit);
+        this.vars = varExtractVisit.getVars();
     }
 
-    public <E> List<E> getFalseAssignments() {
-        return null;
+    /**
+     * Rückgabetyp muss Liste sein, also mach neue Liste, die ist erstmal leer
+     * 1. Erstelle neue Liste List<VarAssignment> list = new ArrayList<>();
+     * Die ist leer
+     * Standardkonstruktur: wenn kein Konstruktor geschrieben, ohne Parameterübergabe, aber stellt Methoden
+     * und Attribute zur Verfügung
+     * Ansonsten werden beim Erstellen eines Konstruktors, Parameter mitübergeben
+     * Was hat es also? Es hat eine Map als Attribut und List als Attribut
+     * Aber beide Leer und haben noch nichts
+     * 2. Es muss ein neues VarAssignment Objekt erstellt werden, weil man damit alle Belegungen
+     * iterieren kann für alle Variablen
+     * Man schreibt eine Wahrheitstabelle zum Iterieren
+     * 3. Es muss ein neues Visitor Objekt erstellt werden, weil wir alle Variablen aus dem Ausdruck filtern
+     * und in die Liste befüllen
+     * siehe Konstruktor
+     * 4. Übergabe von einzelnen Variablen mit dem Wert False
+     * 5. EvalVisitor gibt True/False für das Assignment zurück, kennt aber das VarAssignment noch nicht
+     * 6. Deshalb Variable mit Belegung aus VarAssignment befüllen
+     * 7. Durchiterieren mit einem Iterator der Klasse VarAssignment unt der Methode next()
+     * 8. expr.accept: Expression accept den Visitor, der den Ausdruck auswertet
+     * In Abhängigkeit des Ausdrucks nutzt er seine visits und die Methoden, um die Expression auszuwerten
+     * Er schaut aber immer, ob true oder false
+     * Wenn true, soll es in die liste übergeben werden
+     *
+     * @return befüllte Liste
+     */
+    public List<VarAssignment> getTrueAssignments() {
+        List<VarAssignment> list = new ArrayList<>(); VarAssignment varAss = new VarAssignment(); for (Var var : vars) {
+            varAss.setVar(var, false); // False nur für den Anfang gesetzt
+        } for (VarAssignment it : (Iterable<VarAssignment>) varAss) {
+            EvalVisitor evalVisit = new EvalVisitor(); for (Var var : it.getVars()) {
+                evalVisit.setVar(var, it.getAssignment(var));
+            } if (expr.accept(evalVisit)) list.add(it);
+        } return list;
     }
+
+    public List<VarAssignment> getFalseAssignments() {
+        List<VarAssignment> list = new ArrayList<>(); VarAssignment varAss = new VarAssignment(); for (Var var : vars) {
+            varAss.setVar(var, false); // False nur für den Anfang gesetzt
+        } for (VarAssignment it : (Iterable<VarAssignment>) varAss) {
+            EvalVisitor evalVisit = new EvalVisitor(); for (Var var : it.getVars()) {
+                evalVisit.setVar(var, it.getAssignment(var));
+            } if (!((boolean) expr.accept(evalVisit))) list.add(it);
+        } return list;
+    }
+
+    public abstract Expr normalize();
 }
