@@ -7,7 +7,7 @@
  * dass bei der Erzeugung eines Objektes der Unterklassen der richtige Operator (als String-
  * Objekt) und die übergebenen Ausdrücke vom Typ Expr an die Oberklasse weitergegeben
  * werden.
- *
+ * <p>
  * h) Alle Expr-Objekte sollen beim Aufruf der toString()-Methode geeignete Zeichenketten zurückliefern.
  * So sollen Var-Objekte ihren Namen, Const-Objekte ihren Wert als entsprechendes
  * Java-Literal, unäre Operationen den Operator direkt vor dem Operanden, z.B. !x, und
@@ -23,7 +23,7 @@ package booleanexpr.expr;
 
 import java.util.Objects;
 
-public class OrExpr extends BinaryExpr{
+public class OrExpr extends BinaryExpr {
     Expr exprL;
     Expr exprR;
 
@@ -32,8 +32,7 @@ public class OrExpr extends BinaryExpr{
      * @param exprR wenn Konstruktor aufgerufen wurde, Erzeugung des rechten Objekts, dann Übergabe vom Ausdruck
      */
     public OrExpr(Expr exprL, Expr exprR) {
-        this.exprL = exprL;
-        this.exprR = exprR;
+        this.exprL = exprL; this.exprR = exprR;
     }
 
     /**
@@ -51,6 +50,7 @@ public class OrExpr extends BinaryExpr{
     public Expr getRightOperand() {
         return exprR;
     }
+
     /**
      * @return mit Hilfe Object-Klasse und seiner Methode toString, macht er aus der Übergabe von
      * Strings, welche mit + konkateniert werden
@@ -64,10 +64,8 @@ public class OrExpr extends BinaryExpr{
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OrExpr orExpr = (OrExpr) o;
-        return Objects.equals(exprL, orExpr.exprL) && Objects.equals(exprR, orExpr.exprR);
+        if (this == o) return true; if (o == null || getClass() != o.getClass()) return false;
+        OrExpr orExpr = (OrExpr) o; return Objects.equals(exprL, orExpr.exprL) && Objects.equals(exprR, orExpr.exprR);
     }
 
     /**
@@ -82,7 +80,7 @@ public class OrExpr extends BinaryExpr{
     /**
      * @param visitor Wenn visitor Strings als Ausgabe verwendet, dann wird auch diese Accept Methode Strings als
      *                Rückgabe verwenden, visitor.visit(this)
-     * @param <T> Generischer Typ, kann String, Int, whatever sein
+     * @param <T>     Generischer Typ, kann String, Int, whatever sein
      * @return
      */
     public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}

@@ -20,7 +20,7 @@
 
 package booleanexpr.expr;
 
-public abstract class UnaryExpr implements Expr{
+public abstract class UnaryExpr implements Expr {
     /**
      * stellt sie die textuelle Darstellung des Operators als String zur Verfügung
      */

@@ -21,10 +21,10 @@
 
 package booleanexpr.expr;
 
-public abstract class BinaryExpr implements Expr{
+public abstract class BinaryExpr implements Expr {
 
     /**
-     * @return  stellt die textuelle Darstellung des Operators als String zur Verfügung
+     * @return stellt die textuelle Darstellung des Operators als String zur Verfügung
      */
     public abstract String getOperator();
 

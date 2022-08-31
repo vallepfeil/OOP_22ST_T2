@@ -13,7 +13,7 @@
  * der bekannten accept-Methode des Visitor-Patterns. Beachten Sie, dass diese
  * Methode (genau wie die visit-Methode) einen generischen Rückgabetyp aufweisen muss.
  * An dieser Stelle kann erneut T verwendet werden.
- *
+ * <p>
  * Aufgabe 3
  * Für eine praktische Anwendung des Visitor-Patterns beginnen wir mit der Implementierung von
  * drei Varianten der Generierung von Strings im Package booleanexpr.expr:
@@ -39,7 +39,7 @@
  * Operator werden jeweils durch eine Leerstelle getrennt. Bei dieser Notation werden ebenfalls
  * keine Klammern benötigt, und die Konstruktoren des PostfixVisitors sollen sich ebenfalls
  * genauso wie die des Prefix- und des InfixVisitors verhalten.
- *
+ * <p>
  * Aufgabe 5
  * Eine weitere Implementierung des Visitors hat die Auswertung von booleschen Ausdrücken zum
  * Ziel. Implementieren Sie den EvalVisitor im Package booleanexpr.expr so, dass ein Expr-
@@ -54,7 +54,7 @@
  * bei der Auswertung eines Ausdrucks fehlt, soll eine UnknownVarException geworfen werden.
  * Hinweis: Denken Sie daran, das Sie bereits eine Klasse zur Zuweisung von Variablenbelegungen
  * implementiert haben.
- *
+ * <p>
  * Aufgabe 6
  * Für eine spätere Aufgabe implementieren Sie im Package booleanexpr.expr den VarExtract-
  * Visitor, der ein Expr-Objekt besucht und dabei alle vorkommenden Variablen speichert. Die
@@ -65,7 +65,6 @@
 package booleanexpr.expr;
 
 /**
- *
  * @param <T> Erstellt einen String-Visitor o. Anderes, T steht auch für den Rückgabetyp der Methode
  */
 public interface Visitor<T> {
@@ -76,10 +75,16 @@ public interface Visitor<T> {
      * das Ganze ist abstrakt, wichtig für Aufgabe 3
      */
     public T visit(AndExpr visit);
+
     public T visit(Const visit);
+
     public T visit(EqualsExpr visit);
+
     public T visit(NotExpr visit);
+
     public T visit(OrExpr visit);
+
     public T visit(Var visit);
+
     public T visit(XorExpr visit);
 }

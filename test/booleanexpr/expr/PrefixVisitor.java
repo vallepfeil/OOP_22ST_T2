@@ -69,13 +69,11 @@ public class PrefixVisitor implements Visitor<String> {
      */
     @Override
     public String visit(AndExpr expr) {
-        return and + " " + expr.getLeftOperand().accept(this)
-               + " " + expr.getRightOperand().accept(this);
+        return and + " " + expr.getLeftOperand().accept(this) + " " + expr.getRightOperand().accept(this);
     }
 
     public String visit(EqualsExpr expr) {
-        return equals + " " + expr.getLeftOperand().accept(this)
-               + " " + expr.getRightOperand().accept(this);
+        return equals + " " + expr.getLeftOperand().accept(this) + " " + expr.getRightOperand().accept(this);
     }
 
     public String visit(NotExpr expr) {
@@ -83,13 +81,11 @@ public class PrefixVisitor implements Visitor<String> {
     }
 
     public String visit(OrExpr expr) {
-        return or + " " + expr.getLeftOperand().accept(this)
-               + " " + expr.getRightOperand().accept(this);
+        return or + " " + expr.getLeftOperand().accept(this) + " " + expr.getRightOperand().accept(this);
     }
 
     public String visit(XorExpr expr) {
-        return xor + " " + expr.getLeftOperand().accept(this)
-               + " " + expr.getRightOperand().accept(this);
+        return xor + " " + expr.getLeftOperand().accept(this) + " " + expr.getRightOperand().accept(this);
     }
 
     /**

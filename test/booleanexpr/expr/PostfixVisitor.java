@@ -69,13 +69,11 @@ public class PostfixVisitor implements Visitor<String> {
      */
     @Override
     public String visit(AndExpr expr) {
-        return expr.getLeftOperand().accept(this)
-               + " " + expr.getRightOperand().accept(this) + " " + and;
+        return expr.getLeftOperand().accept(this) + " " + expr.getRightOperand().accept(this) + " " + and;
     }
 
     public String visit(EqualsExpr expr) {
-        return expr.getLeftOperand().accept(this)
-               + " " + expr.getRightOperand().accept(this) + " " + equals;
+        return expr.getLeftOperand().accept(this) + " " + expr.getRightOperand().accept(this) + " " + equals;
     }
 
     public String visit(NotExpr expr) {
@@ -83,13 +81,11 @@ public class PostfixVisitor implements Visitor<String> {
     }
 
     public String visit(OrExpr expr) {
-        return expr.getLeftOperand().accept(this)
-               + " " + expr.getRightOperand().accept(this) + " " + or;
+        return expr.getLeftOperand().accept(this) + " " + expr.getRightOperand().accept(this) + " " + or;
     }
 
     public String visit(XorExpr expr) {
-        return expr.getLeftOperand().accept(this)
-               + " " + expr.getRightOperand().accept(this) + " " + xor;
+        return expr.getLeftOperand().accept(this) + " " + expr.getRightOperand().accept(this) + " " + xor;
     }
 
     /**

@@ -13,7 +13,7 @@
 
 package booleanexpr.expr;
 
-public class UnknownVarException extends RuntimeException{
+public class UnknownVarException extends RuntimeException {
 
     /**
      * Constructs an {@code IllegalArgumentException} with no
@@ -27,7 +27,7 @@ public class UnknownVarException extends RuntimeException{
      * Constructs an {@code IllegalArgumentException} with the
      * specified detail message.
      *
-     * @param   s   the detail message.
+     * @param s the detail message.
      */
     public UnknownVarException(String s) {
         super(s);
@@ -41,12 +41,12 @@ public class UnknownVarException extends RuntimeException{
      * <i>not</i> automatically incorporated in this exception's detail
      * message.
      *
-     * @param  message the detail message (which is saved for later retrieval
-     *         by the {@link Throwable#getMessage()} method).
-     * @param  cause the cause (which is saved for later retrieval by the
-     *         {@link Throwable#getCause()} method).  (A {@code null} value
-     *         is permitted, and indicates that the cause is nonexistent or
-     *         unknown.)
+     * @param message the detail message (which is saved for later retrieval
+     *                by the {@link Throwable#getMessage()} method).
+     * @param cause   the cause (which is saved for later retrieval by the
+     *                {@link Throwable#getCause()} method).  (A {@code null} value
+     *                is permitted, and indicates that the cause is nonexistent or
+     *                unknown.)
      * @since 1.5
      */
     public UnknownVarException(String message, Throwable cause) {
@@ -61,11 +61,11 @@ public class UnknownVarException extends RuntimeException{
      * wrappers for other throwables (for example, {@link
      * java.security.PrivilegedActionException}).
      *
-     * @param  cause the cause (which is saved for later retrieval by the
-     *         {@link Throwable#getCause()} method).  (A {@code null} value is
-     *         permitted, and indicates that the cause is nonexistent or
-     *         unknown.)
-     * @since  1.5
+     * @param cause the cause (which is saved for later retrieval by the
+     *              {@link Throwable#getCause()} method).  (A {@code null} value is
+     *              permitted, and indicates that the cause is nonexistent or
+     *              unknown.)
+     * @since 1.5
      */
     public UnknownVarException(Throwable cause) {
         super(cause);

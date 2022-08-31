@@ -11,7 +11,7 @@
  * Verfügung. Auch dieser Aufzählungstyp implementiert das Interface Expr. Über die Methode
  * isValue() liefert der jeweilige Aufzählungswert den entsprechenden Wert vom primitiven
  * Java-Typ boolean.
- *
+ * <p>
  * h) Alle Expr-Objekte sollen beim Aufruf der toString()-Methode geeignete Zeichenketten zurückliefern.
  * So sollen Var-Objekte ihren Namen, Const-Objekte ihren Wert als entsprechendes
  * Java-Literal, unäre Operationen den Operator direkt vor dem Operanden, z.B. !x, und

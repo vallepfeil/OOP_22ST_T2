@@ -82,7 +82,7 @@ public class AndExpr extends BinaryExpr {
     /**
      * @param visitor Wenn visitor Strings als Ausgabe verwendet, dann wird auch diese Accept Methode Strings als
      *                Rückgabe verwenden, visitor.visit(this)
-     * @param <T> Generischer Typ, kann String, Int, whatever sein
+     * @param <T>     Generischer Typ, kann String, Int, whatever sein
      * @return
      */
     public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}

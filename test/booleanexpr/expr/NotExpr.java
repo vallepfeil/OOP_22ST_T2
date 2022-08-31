@@ -49,7 +49,7 @@ public class NotExpr extends UnaryExpr {
      * Strings, welche mit + konkateniert werden
      */
     @Override
-    public String toString() {return getOperator()+ getOperand().toString();}
+    public String toString() {return getOperator() + getOperand().toString();}
 
     /**
      * @param o
@@ -57,10 +57,8 @@ public class NotExpr extends UnaryExpr {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NotExpr notExpr = (NotExpr) o;
-        return Objects.equals(expr, notExpr.expr);
+        if (this == o) return true; if (o == null || getClass() != o.getClass()) return false;
+        NotExpr notExpr = (NotExpr) o; return Objects.equals(expr, notExpr.expr);
     }
 
     /**
@@ -75,7 +73,7 @@ public class NotExpr extends UnaryExpr {
     /**
      * @param visitor Wenn visitor Strings als Ausgabe verwendet, dann wird auch diese Accept Methode Strings als
      *                Rückgabe verwenden, visitor.visit(this)
-     * @param <T> Generischer Typ, kann String, Int, whatever sein
+     * @param <T>     Generischer Typ, kann String, Int, whatever sein
      * @return
      */
     public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}
