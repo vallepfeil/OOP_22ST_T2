@@ -41,7 +41,7 @@
 package booleanexpr.expr;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -88,7 +88,9 @@ public class VarAssignment implements Iterable {
      * @return
      */
     public List<Var> getVars() {
-        Collections.sort(list); return list;
+        Var[] varArr = new Var[map.size()]; int i = 0; for (Var v : map.keySet()) {
+            varArr[i] = v; i++;
+        } Arrays.sort(varArr); return Arrays.stream(varArr).toList();
     }
 
     /**
@@ -97,98 +99,61 @@ public class VarAssignment implements Iterable {
      *
      * @return
      */
+
     public Iterator<VarAssignment> iterator() {
-        Iterator<VarAssignment> iterator = new VarIterator(getVars()); return iterator;
-    }
+        int size = 1; for (int i = 0; i < map.size(); i++) {
+            size *= 2;
+        } int finalSize = size; VarAssignment[] varAssArr = new VarAssignment[finalSize];
 
-    public class VarIterator implements Iterator<VarAssignment> {
-
-        VarAssignment varAss;
-        VarAssignment[] varAssArr;
-        int c = -1;
-
-        /**
-         * varAssArr muss in der Größe definiert werden
-         * Definition im Konstruktor anhand der Listengröße
-         * Schleife rückwärts laufen (siehe j-For-Schleife)
-         * i zählt next Aufrufe der Tabelle (spaltenweise)
-         * j zählt Variablen rückwärts, also von unten (zeilenweise)
-         *
-         * @param list
-         */
-        public VarIterator(List<Var> list) {
-            this.varAssArr = new VarAssignment[(int) Math.pow(2, list.size())];
-            for (int i = 0; i < varAssArr.length; i++) {
-                varAssArr[i] = this.varAss = new VarAssignment(); for (Var var : list) {
-                    varAss.setVar(var, false);
+        VarAssignment newVarAss = null; for (int i = 0; i < finalSize; i++) {
+            if (newVarAss == null) {
+                newVarAss = new VarAssignment(); for (Var v : map.keySet()) {
+                    newVarAss.setVar(v, false);
                 }
-            } for (int i = 1; i < varAssArr.length; i++) {
-                List<Var> varAssTList = new ArrayList<>();
-                for (int j = varAssArr[i - 1].getVars().size() - 1; j >= 0; j--) {
-                    Var v = varAssArr[i - 1].getVars().get(j); //in v steht das z
-                    if (varAssArr[i - 1].getAssignment(v) == false) {
-                        varAssArr[i].setVar(v, true); //verändere Wert
-                        for (Var var : varAssTList) {
-                            varAssArr[i].setVar(var, false);
+            }
+            else {
+                VarAssignment copyVarAss = new VarAssignment(); for (Var v : newVarAss.getVars()) {
+                    copyVarAss.map.put(v, newVarAss.map.get(v));
+                } newVarAss = copyVarAss; List<Integer> storeTrues = new ArrayList<>();
+                for (int j = newVarAss.getVars().size() - 1; j >= 0; j--) {
+                    if (newVarAss.getAssignment(newVarAss.getVars().get(j)) == false) {
+                        newVarAss.setVar(newVarAss.getVars().get(j), true); for (int k : storeTrues) {
+                            newVarAss.setVar(newVarAss.getVars().get(k), false);
                         } break;
                     }
                     else {
-                        varAssTList.add(v);
+                        storeTrues.add(j);
                     }
-                } if (i == varAssArr.length - 1) {
-                    for (Var v : varAssArr[i].getVars()) {
-                        varAssArr[i].setVar(v, true);
-                    } break;
                 }
             }
+
+            varAssArr[i] = newVarAss;
         }
 
-        /**
-         * in der for-Schleife geht er die Werte der Variablen durch und fragt ab, ob gleich false
-         * off by 1 Error, Verrechnung um 1
-         * Sagt ob man am Ende angekommen ist, Abbruchbedingung für die Schleife
-         *
-         * @return false, wenn alle Variablen true sind
-         */
-        @Override
-        public boolean hasNext() {
-            if (c == -1) {
-                for (Var var : varAssArr[c + 1].list) {
-                    if (varAssArr[c + 1].getAssignment(var) == false) {
-                        return true;
-                    } ;
-                } return false;
-            } for (Var var : varAssArr[c].list) {
-                if (varAssArr[c].getAssignment(var) == false) {
-                    return true;
-                } ;
-            } return false;
-        }
+        Iterator<VarAssignment> it = new Iterator<>() {
 
-        /**
-         * Man schreibt sich ein Array vom Typ varAss
-         * Größe 2^n
-         * Stelle 0: varAss alle Variablen false
-         * Stelle 2^n-1: varAss alle Variablen true
-         * An Stelle 0: Ausgabe
-         * An Stelle n: Ausgabe
-         *
-         * @return
-         */
-        @Override
-        public VarAssignment next() {
-            return varAssArr[++c];
-        }
+            int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < finalSize;
+            }
+
+            @Override
+            public VarAssignment next() {
+                return varAssArr[currentIndex++];
+            }
+        }; return it;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; if (o == null || getClass() != o.getClass()) return false;
-        VarAssignment that = (VarAssignment) o; return Objects.equals(map, that.map) && Objects.equals(list, that.list);
+        VarAssignment that = (VarAssignment) o; return Objects.equals(map, that.map);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(map, list);
+        return Objects.hash(map);
     }
 }

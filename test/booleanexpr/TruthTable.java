@@ -69,15 +69,14 @@ public class TruthTable {
     VarAssignment varAss = new VarAssignment();
 
     public void addExpr(Expr expr) {
-        listExpr.add(expr); expr.accept(varExtractVisitor); listVars = varExtractVisitor.getVars().stream().toList(); //LM
+        listExpr.add(expr); expr.accept(varExtractVisitor);
+        listVars = varExtractVisitor.getVars().stream().toList(); //LM
     }
 
     public Set<Var> getVars() {
-        Set<Var> set = new HashSet<>();
-        for(Var v : listVars){
+        Set<Var> set = new HashSet<>(); for (Var v : listVars) {
             set.add(v);
-        }
-        return set;
+        } return set;
         //LM
         //return varExtractVisitor.getVars();
     }
@@ -96,83 +95,59 @@ public class TruthTable {
             sb.append(" "); sb.append(v.getName()); sb.append(" "); sb.append("|");
         } for (Expr expr : listExpr) {
             sb.append(" "); sb.append("e" + i); i++; sb.append(" "); sb.append("|");
-        } sb.append(System.lineSeparator());
-        sb.append("+"); for (Var v : getVars()) {
-            sb.append("---"); sb.append("+");
-        } for (Expr expr : listExpr) {
-            sb.append("---"); sb.append("+");
-        } sb.append(System.lineSeparator());
+        } sb.append(System.lineSeparator()); sb.append("+"); for (Var v : getVars()) {
+            for (int j = 0; j < v.getName().length(); j++) {
+                sb.append("-");
+            } sb.append("--"); sb.append("+");
+        } i = 0; for (Expr expr : listExpr) {
+            i++; int l; int k = ("e" + i).length(); for (l = 0; l < k; l++) {
+                sb.append("-");
+            } sb.append("--"); sb.append("+");
+        } ;// sb.append(System.lineSeparator());
 
         for (Var var : getVars()) {
             varAss.setVar(var, false);
-        }
-        Iterator<VarAssignment> it = varAss.iterator();
-        while (it.hasNext()) {
+        } Iterator<VarAssignment> it = varAss.iterator(); while (it.hasNext()) {
 /*            it.next(); // Objekt, das zurückkommt ist ein VarAssignment; Schleife bestimmt Anzahl der Zeilen,
               VP
             // die noch kommen; Bei 100 Expressions =>*/
-            VarAssignment var = it.next();
-            sb.append(System.lineSeparator()+"|");
-            for(Var v : listVars){
-                boolean ass = var.getAssignment(v);
-                sb.append(" ");
-                for(int j = 0; j < v.getName().length()/2; j++){
+            VarAssignment var = it.next(); sb.append(System.lineSeparator() + "|"); for (Var v : listVars) {
+                boolean ass = var.getAssignment(v); sb.append(" "); for (int j = 0; j < v.getName().length() / 2; j++) {
                     sb.append(" ");
-                }
-                if(ass){
+                } if (ass) {
                     sb.append("T");
-                }else{
+                }
+                else {
 
                     sb.append("F");
-                }
-                for(int j = 0; j < v.getName().length()/2; j++){
+                } for (int j = 0; j < v.getName().length() / 2; j++) {
                     sb.append(" ");
-                }
-                if(!(v.getName().length() % 2 == 0)){
+                } if (!(v.getName().length() % 2 == 0)) {
                     sb.append(" ");
-                }
-                sb.append("|");
-            }
-            i = 1;
-            for(Expr expr : listExpr){
-                evalVisitor = new EvalVisitor();
-                for(Var v : var.getVars()){
-                    evalVisitor.setVar(v,var.getAssignment(v));
-                }
-                boolean eval = expr.accept(evalVisitor);
-                String s = "e" + i;
-                int j = s.length();
-                sb.append(" ");
-                for(int k = 0; k < j/2; k++){
+                } sb.append("|");
+            } i = 1; for (Expr expr : listExpr) {
+                evalVisitor = new EvalVisitor(); for (Var v : var.getVars()) {
+                    evalVisitor.setVar(v, var.getAssignment(v));
+                } boolean eval = expr.accept(evalVisitor); String s = "e" + i; int j = s.length(); sb.append(" ");
+                for (int k = 0; k < j / 2; k++) {
                     sb.append(" ");
-                }
-                if(eval){
+                } if (eval) {
                     sb.append("T");
-                }else{
+                }
+                else {
                     sb.append("F");
-                }
-                for(int k = 0; k < j/2; k++){
+                } for (int k = 0; k < j / 2; k++) {
                     sb.append(" ");
-                }
-                if(!(j % 2 == 0)){
+                } if (!(j % 2 == 0)) {
                     sb.append(" ");
-                }
-                sb.append("|");
-                i++;
+                } sb.append("|"); i++;
             }
+        } i = 1; for (Expr expr : listExpr) {
+            sb.append(System.lineSeparator() + "e" + i + " = "); sb.append((String) expr.accept(infixVisitor)); i++;
+        } sb.append(System.lineSeparator());
 
-        }
-        i = 1;
-        for(Expr expr : listExpr){
-            sb.append(System.lineSeparator()+"e"+i+" = ");
-            sb.append((String)expr.accept(infixVisitor));
-            i++;
-        }
-        sb.append(System.lineSeparator());
-
-        if(listExpr.isEmpty()){
+        if (listExpr.isEmpty()) {
             return "no expressions defined";
-        }
-        return sb.toString();
+        } return sb.toString();
     }
 }
