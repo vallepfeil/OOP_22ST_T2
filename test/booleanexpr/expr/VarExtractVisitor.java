@@ -14,17 +14,15 @@ package booleanexpr.expr;
 import java.util.HashSet;
 import java.util.Set;
 
-public class VarExtractVisitor implements Visitor{
+public class VarExtractVisitor implements Visitor {
     Set<Var> var = new HashSet<>();
+
     @Override
     public Object visit(AndExpr expr) {
-        expr.getLeftOperand().accept(this);
-        expr.getRightOperand().accept(this);
-        return null;
+        expr.getLeftOperand().accept(this); expr.getRightOperand().accept(this); return null;
     }
 
     /**
-     *
      * @param expr unterschiedlichen Typs, wenn unterschiedlichen Typen erkannt,
      *             springt diese in die jeweiligen visits rein und führt den Code aus
      * @return null, weil in Const keine Variablen vorkommen
@@ -36,42 +34,33 @@ public class VarExtractVisitor implements Visitor{
 
     @Override
     public Object visit(EqualsExpr expr) {
-        expr.getLeftOperand().accept(this);
-        expr.getRightOperand().accept(this);
-        return null;
+        expr.getLeftOperand().accept(this); expr.getRightOperand().accept(this); return null;
     }
 
     @Override
     public Object visit(NotExpr expr) {
-        expr.getOperand().accept(this);
-        return null;
+        expr.getOperand().accept(this); return null;
     }
 
     @Override
     public Object visit(OrExpr expr) {
-        expr.getLeftOperand().accept(this);
-        expr.getRightOperand().accept(this);
-        return null;
+        expr.getLeftOperand().accept(this); expr.getRightOperand().accept(this); return null;
     }
 
     @Override
     public Object visit(Var expr) {
-        var.add(expr);
-        return null;
+        var.add(expr); return null;
     }
 
     @Override
     public Object visit(XorExpr expr) {
-        expr.getLeftOperand().accept(this);
-        expr.getRightOperand().accept(this);
-        return null;
+        expr.getLeftOperand().accept(this); expr.getRightOperand().accept(this); return null;
     }
 
     /**
-     *
      * @return var als Set<Var> muss zurückgegeben werden, Sets sind bestimmte Listen, nachlesen!
      */
-    public Set<Var> getVars(){
+    public Set<Var> getVars() {
         return var;
     }
 }

@@ -42,12 +42,13 @@ import booleanexpr.expr.VarAssignment;
 import booleanexpr.expr.VarExtractVisitor;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 public abstract class NormalForm {
-    private Expr expr;
-    private Set<Var> vars;
+    private final Expr expr;
+    private final Set<Var> vars;
 
     /**
      * Man hat eine abstrakte Klasse mit einem Konstruktor, nicht um ein Objekt zu erstellen
@@ -95,20 +96,22 @@ public abstract class NormalForm {
     public List<VarAssignment> getTrueAssignments() {
         List<VarAssignment> list = new ArrayList<>(); VarAssignment varAss = new VarAssignment(); for (Var var : vars) {
             varAss.setVar(var, false); // False nur für den Anfang gesetzt
-        } for (VarAssignment it : (Iterable<VarAssignment>) varAss) {
-            EvalVisitor evalVisit = new EvalVisitor(); for (Var var : it.getVars()) {
-                evalVisit.setVar(var, it.getAssignment(var));
-            } if (expr.accept(evalVisit)) list.add(it);
+        } Iterator<VarAssignment> it = varAss.iterator(); while (it.hasNext()) {
+            VarAssignment varit = it.next(); EvalVisitor evalVisit = new EvalVisitor();
+            for (Var var : varit.getVars()) {
+                evalVisit.setVar(var, varit.getAssignment(var));
+            } if (expr.accept(evalVisit)) list.add(varit);
         } return list;
     }
 
     public List<VarAssignment> getFalseAssignments() {
         List<VarAssignment> list = new ArrayList<>(); VarAssignment varAss = new VarAssignment(); for (Var var : vars) {
             varAss.setVar(var, false); // False nur für den Anfang gesetzt
-        } for (VarAssignment it : (Iterable<VarAssignment>) varAss) {
-            EvalVisitor evalVisit = new EvalVisitor(); for (Var var : it.getVars()) {
-                evalVisit.setVar(var, it.getAssignment(var));
-            } if (!((boolean) expr.accept(evalVisit))) list.add(it);
+        } Iterator<VarAssignment> it = varAss.iterator(); while (it.hasNext()) {
+            VarAssignment varit = it.next(); EvalVisitor evalVisit = new EvalVisitor();
+            for (Var var : varit.getVars()) {
+                evalVisit.setVar(var, varit.getAssignment(var));
+            } if (!((boolean) expr.accept(evalVisit))) list.add(varit);
         } return list;
     }
 

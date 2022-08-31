@@ -19,6 +19,7 @@
  * <p>
  * Konstruktor, Variable die Speichert, Get-Methoden
  */
+
 package booleanexpr.expr;
 
 import java.util.Objects;
