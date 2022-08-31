@@ -59,7 +59,7 @@ public class XorExpr extends BinaryExpr {
     public String toString() {return "(" + getLeftOperand().toString() + " " + getOperator() + " " + getRightOperand().toString() + ")";}
 
     /**
-     * @param o
+     * @param o Objekt o wird übergeben und vgl.
      * @return Unterscheidung von zwei Objekten, aber auch Bewertung, ob zwei Objekte dieselben sind
      */
     @Override
@@ -82,7 +82,8 @@ public class XorExpr extends BinaryExpr {
      * @param visitor Wenn visitor Strings als Ausgabe verwendet, dann wird auch diese Accept Methode Strings als
      *                Rückgabe verwenden, visitor.visit(this)
      * @param <T>     Generischer Typ, kann String, Int, whatever sein
-     * @return
+     * @return Gibt den Visit als Generic aus
      */
+    @SuppressWarnings("unchecked")
     public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}
 }

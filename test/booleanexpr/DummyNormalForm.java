@@ -9,9 +9,4 @@ public class DummyNormalForm extends NormalForm {
     public Expr normalize() {
         return null;
     }
-
-//    protected DummyNormalForm(Expr expr) {super(expr);}
-//
-//    @Override
-//    public Expr normalize() {return null;}
 }

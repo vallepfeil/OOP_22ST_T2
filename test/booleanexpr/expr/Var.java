@@ -11,7 +11,6 @@
 
 package booleanexpr.expr;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 public class Var implements Expr, Comparable<Var> {
@@ -21,7 +20,7 @@ public class Var implements Expr, Comparable<Var> {
      * @param name wenn Konstruktor aufgerufen wurde, Erzeugung des linken Objekts, dann Übergabe vom Ausdruck
      */
     public Var(String name) throws IllegalArgumentException {
-        if (name == "true" | name == "false") {
+        if (Objects.equals(name, "true") | Objects.equals(name, "false")) {
             throw new IllegalArgumentException();
         }
         else {
@@ -49,9 +48,7 @@ public class Var implements Expr, Comparable<Var> {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Var var = (Var) o;
+        if (this == o) return true; if (o == null || getClass() != o.getClass()) return false; Var var = (Var) o;
         return Objects.equals(name, var.name);
     }
 
@@ -72,8 +69,9 @@ public class Var implements Expr, Comparable<Var> {
     /**
      * @param visitor Wenn visitor Strings als Ausgabe verwendet, dann wird auch diese Accept Methode Strings als
      *                Rückgabe verwenden, visitor.visit(this)
-     * @param <T> Generischer Typ, kann String, Int, whatever sein
+     * @param <T>     Generischer Typ, kann String, Int, whatever sein
      * @return
      */
+    @SuppressWarnings("unchecked")
     public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}
 }

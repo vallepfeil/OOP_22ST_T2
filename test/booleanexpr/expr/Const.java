@@ -35,10 +35,7 @@ public enum Const implements Expr {
      * Java-Typ boolean
      */
     public boolean isValue() {
-        if (this.equals(Const.TRUE)) {
-            return true;
-        }
-        else return false;
+        return this.equals(Const.TRUE);
     }
 
     /**
@@ -54,5 +51,6 @@ public enum Const implements Expr {
      * @param <T>     Generischer Typ, kann String, Int, whatever sein
      * @return
      */
+    @SuppressWarnings("unchecked")
     public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}
 }

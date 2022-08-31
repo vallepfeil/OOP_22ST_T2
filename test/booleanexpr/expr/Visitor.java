@@ -74,17 +74,17 @@ public interface Visitor<T> {
      * jede Art von Objekten einer Datenstruktur erhält eine Visit-Methode
      * das Ganze ist abstrakt, wichtig für Aufgabe 3
      */
-    public T visit(AndExpr visit);
+    T visit(AndExpr visit);
 
-    public T visit(Const visit);
+    T visit(Const visit);
 
-    public T visit(EqualsExpr visit);
+    T visit(EqualsExpr visit);
 
-    public T visit(NotExpr visit);
+    T visit(NotExpr visit);
 
-    public T visit(OrExpr visit);
+    T visit(OrExpr visit);
 
-    public T visit(Var visit);
+    T visit(Var visit);
 
-    public T visit(XorExpr visit);
+    T visit(XorExpr visit);
 }

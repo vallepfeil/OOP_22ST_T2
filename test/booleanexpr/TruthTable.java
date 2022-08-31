@@ -74,9 +74,7 @@ public class TruthTable {
     }
 
     public Set<Var> getVars() {
-        Set<Var> set = new HashSet<>(); for (Var v : listVars) {
-            set.add(v);
-        } return set;
+        return new HashSet<>(listVars);
         //LM
         //return varExtractVisitor.getVars();
     }
@@ -87,23 +85,21 @@ public class TruthTable {
      * 3. Schleife: Für jede Variable, schreibe Trennlinie, für jeden Ausdruck schreibe Trennlinie
      * 4. Schleife:
      *
-     * @return
+     * @return Gibt String aus
      */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); int i = 1; sb.append("|"); for (Var v : getVars()) {
             sb.append(" "); sb.append(v.getName()); sb.append(" "); sb.append("|");
-        } for (Expr expr : listExpr) {
-            sb.append(" "); sb.append("e" + i); i++; sb.append(" "); sb.append("|");
+        } for (Expr ignored : listExpr) {
+            sb.append(" "); sb.append("e").append(i); i++; sb.append(" "); sb.append("|");
         } sb.append(System.lineSeparator()); sb.append("+"); for (Var v : getVars()) {
-            for (int j = 0; j < v.getName().length(); j++) {
-                sb.append("-");
-            } sb.append("--"); sb.append("+");
-        } i = 0; for (Expr expr : listExpr) {
+            sb.append("-".repeat(v.getName().length())); sb.append("--"); sb.append("+");
+        } i = 0; for (Expr ignored : listExpr) {
             i++; int l; int k = ("e" + i).length(); for (l = 0; l < k; l++) {
                 sb.append("-");
             } sb.append("--"); sb.append("+");
-        } ;// sb.append(System.lineSeparator());
+        } // sb.append(System.lineSeparator());
 
         for (Var var : getVars()) {
             varAss.setVar(var, false);
@@ -111,39 +107,33 @@ public class TruthTable {
 /*            it.next(); // Objekt, das zurückkommt ist ein VarAssignment; Schleife bestimmt Anzahl der Zeilen,
               VP
             // die noch kommen; Bei 100 Expressions =>*/
-            VarAssignment var = it.next(); sb.append(System.lineSeparator() + "|"); for (Var v : listVars) {
-                boolean ass = var.getAssignment(v); sb.append(" "); for (int j = 0; j < v.getName().length() / 2; j++) {
-                    sb.append(" ");
-                } if (ass) {
+            VarAssignment var = it.next(); sb.append(System.lineSeparator()).append("|"); for (Var v : listVars) {
+                boolean ass = var.getAssignment(v); sb.append(" "); sb.append(" ".repeat(v.getName().length() / 2));
+                if (ass) {
                     sb.append("T");
                 }
                 else {
 
                     sb.append("F");
-                } for (int j = 0; j < v.getName().length() / 2; j++) {
-                    sb.append(" ");
-                } if (!(v.getName().length() % 2 == 0)) {
+                } sb.append(" ".repeat(v.getName().length() / 2)); if (!(v.getName().length() % 2 == 0)) {
                     sb.append(" ");
                 } sb.append("|");
             } i = 1; for (Expr expr : listExpr) {
                 evalVisitor = new EvalVisitor(); for (Var v : var.getVars()) {
                     evalVisitor.setVar(v, var.getAssignment(v));
                 } boolean eval = expr.accept(evalVisitor); String s = "e" + i; int j = s.length(); sb.append(" ");
-                for (int k = 0; k < j / 2; k++) {
-                    sb.append(" ");
-                } if (eval) {
+                sb.append(" ".repeat(j / 2)); if (eval) {
                     sb.append("T");
                 }
                 else {
                     sb.append("F");
-                } for (int k = 0; k < j / 2; k++) {
-                    sb.append(" ");
-                } if (!(j % 2 == 0)) {
+                } sb.append(" ".repeat(j / 2)); if (!(j % 2 == 0)) {
                     sb.append(" ");
                 } sb.append("|"); i++;
             }
         } i = 1; for (Expr expr : listExpr) {
-            sb.append(System.lineSeparator() + "e" + i + " = "); sb.append((String) expr.accept(infixVisitor)); i++;
+            sb.append(System.lineSeparator()).append("e").append(i).append(" = ");
+            sb.append((String) expr.accept(infixVisitor)); i++;
         } sb.append(System.lineSeparator());
 
         if (listExpr.isEmpty()) {

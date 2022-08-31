@@ -66,8 +66,7 @@ public class VarAssignment implements Iterable {
     }
 
     public Boolean isAssigned(Var var) {
-        if (map.containsKey(var)) return true;
-        else return false;
+        return map.containsKey(var);
     }
 
     /**
@@ -116,7 +115,7 @@ public class VarAssignment implements Iterable {
                     copyVarAss.map.put(v, newVarAss.map.get(v));
                 } newVarAss = copyVarAss; List<Integer> storeTrues = new ArrayList<>();
                 for (int j = newVarAss.getVars().size() - 1; j >= 0; j--) {
-                    if (newVarAss.getAssignment(newVarAss.getVars().get(j)) == false) {
+                    if (!newVarAss.getAssignment(newVarAss.getVars().get(j))) {
                         newVarAss.setVar(newVarAss.getVars().get(j), true); for (int k : storeTrues) {
                             newVarAss.setVar(newVarAss.getVars().get(k), false);
                         } break;
@@ -130,7 +129,7 @@ public class VarAssignment implements Iterable {
             varAssArr[i] = newVarAss;
         }
 
-        Iterator<VarAssignment> it = new Iterator<>() {
+        return new Iterator<>() {
 
             int currentIndex = 0;
 
@@ -143,7 +142,7 @@ public class VarAssignment implements Iterable {
             public VarAssignment next() {
                 return varAssArr[currentIndex++];
             }
-        }; return it;
+        };
     }
 
     @Override

@@ -83,5 +83,6 @@ public class EqualsExpr extends BinaryExpr {
      * @param <T>     Generischer Typ, kann String, Int, whatever sein
      * @return
      */
+    @SuppressWarnings("unchecked")
     public <T> T accept(Visitor visitor) {return (T) visitor.visit(this);}
 }

@@ -37,7 +37,7 @@ public class EvalVisitor implements Visitor<Boolean> {
 
     @Override
     public Boolean visit(EqualsExpr expr) {
-        return (Boolean) expr.getLeftOperand().accept(this) == (Boolean) expr.getRightOperand().accept(this);
+        return expr.getLeftOperand().accept(this) == expr.getRightOperand().accept(this);
     }
 
     @Override
